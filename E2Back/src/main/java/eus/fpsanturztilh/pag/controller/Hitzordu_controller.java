@@ -2,7 +2,7 @@ package eus.fpsanturztilh.pag.controller;
 
 import eus.fpsanturztilh.pag.model.Hitzorduak;
 import eus.fpsanturztilh.pag.repository.Hitzordu_repository;
-import eus.fpsanturztilh.pag.service.HitzorduService;
+import eus.fpsanturztilh.pag.service.HitzorduServiceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
@@ -16,7 +16,7 @@ import java.util.Optional;
 public class Hitzordu_controller {
 
 	@Autowired
-	HitzorduService hitzorduService; 
+	HitzorduServiceImpl hitzorduService; 
 	
     @GetMapping("")
     public ResponseEntity<List<Hitzorduak>> getAllHitzorduak() {
@@ -27,7 +27,7 @@ public class Hitzordu_controller {
     
     @GetMapping("/id/{id}")
     public ResponseEntity<Hitzorduak> findHitzorduak(@PathVariable Long id) {
-    	Optional<Hitzorduak> hitzordua_list = hitzorduService.findById(id);
+    	Optional<Hitzorduak> hitzordua_list = hitzorduService.find(id);
     	if(hitzordua_list.isPresent()) {
     		return ResponseEntity.ok(hitzordua_list.get());
     	}
@@ -36,7 +36,7 @@ public class Hitzordu_controller {
     
     @PostMapping("")
     public ResponseEntity<Hitzorduak> createHitzorduak(@RequestBody Hitzorduak hitzordu) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(hitzorduService.save(hitzordu));
+		return ResponseEntity.status(HttpStatus.CREATED).body(hitzorduService.create(hitzordu));
 	}
 }
 

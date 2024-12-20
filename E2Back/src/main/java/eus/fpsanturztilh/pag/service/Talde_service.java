@@ -6,14 +6,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import eus.fpsanturztilh.pag.model.Hitzorduak;
+import eus.fpsanturztilh.pag.model.Taldeak;
 
-public interface Hitzordu_service {
+public interface Talde_service {
 	
-	public List<Hitzorduak> getAll();
+	public List<Taldeak> getAll();
     
-    public Optional<Hitzorduak> find(Long id);
+    public Optional<Taldeak> find(String kodea);
     
-    public Hitzorduak create(Hitzorduak hitzordu);
+    public Taldeak create(Taldeak taldea);
     
 }

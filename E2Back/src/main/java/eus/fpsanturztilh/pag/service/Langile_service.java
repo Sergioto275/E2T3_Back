@@ -6,14 +6,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import eus.fpsanturztilh.pag.model.Hitzorduak;
+import eus.fpsanturztilh.pag.model.Langileak;
 
-public interface Hitzordu_service {
+public interface Langile_service {
 	
-	public List<Hitzorduak> getAll();
+	public List<Langileak> getAll();
     
-    public Optional<Hitzorduak> find(Long id);
+    public Optional<Langileak> find(Long id);
     
-    public Hitzorduak create(Hitzorduak hitzordu);
+    public Langileak create(Langileak langile);
     
 }

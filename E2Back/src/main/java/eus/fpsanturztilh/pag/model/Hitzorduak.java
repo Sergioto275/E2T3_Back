@@ -56,8 +56,9 @@ public class Hitzorduak implements Serializable{
     @Column(name = "ordaindutakoa", precision = 10, scale = 2)
     private BigDecimal ordaindutakoa;
 
- /*  @ManyToOne
-    @JoinColumn(name = "id_langilea*/
+    @ManyToOne
+    @JoinColumn(name = "id_langilea")
+    private Langileak langilea;
 
     @Column(name = "sortze_data", updatable = false)
     private LocalDateTime sortzeData = LocalDateTime.now();
