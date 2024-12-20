@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
-import java.math.*;
 import java.time.*;
 
 @Getter
@@ -15,7 +14,12 @@ import java.time.*;
 @Entity
 @Table(name = "taldeak")
 public class Taldeak implements Serializable{
-
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
     @Id
     private String kodea;
 

@@ -28,7 +28,6 @@ public class TaldeServiceImpl implements Talde_service {
 	@Override
     public Taldeak create(Taldeak taldea)
     {
-		
 		return taldeRepository.save(taldea);
     }
 }

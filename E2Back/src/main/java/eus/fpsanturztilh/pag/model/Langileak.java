@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
-import java.math.*;
 import java.time.*;
 
 @Getter
@@ -15,7 +14,11 @@ import java.time.*;
 @Entity
 @Table(name = "langileak")
 public class Langileak implements Serializable{
-
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
