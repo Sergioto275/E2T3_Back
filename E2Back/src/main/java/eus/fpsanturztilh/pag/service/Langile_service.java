@@ -1,12 +1,7 @@
 package eus.fpsanturztilh.pag.service;
 
 import java.util.*;
-
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-
-import eus.fpsanturztilh.pag.model.Langileak;
+import eus.fpsanturztilh.pag.model.*;
 
 public interface Langile_service {
 	

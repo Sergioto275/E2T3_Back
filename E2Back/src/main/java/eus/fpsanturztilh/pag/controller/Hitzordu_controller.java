@@ -1,15 +1,13 @@
 package eus.fpsanturztilh.pag.controller;
 
-import eus.fpsanturztilh.pag.model.Hitzorduak;
-import eus.fpsanturztilh.pag.repository.Hitzordu_repository;
-import eus.fpsanturztilh.pag.service.HitzorduServiceImpl;
+import eus.fpsanturztilh.pag.model.*;
+import eus.fpsanturztilh.pag.service.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/hitzorduak")

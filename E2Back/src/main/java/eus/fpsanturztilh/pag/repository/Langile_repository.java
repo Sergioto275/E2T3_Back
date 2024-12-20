@@ -1,6 +1,6 @@
 package eus.fpsanturztilh.pag.repository;
 
-import eus.fpsanturztilh.pag.model.Langileak;
+import eus.fpsanturztilh.pag.model.*;
 
 import java.util.List;
 
