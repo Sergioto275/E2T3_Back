@@ -60,7 +60,7 @@ public class Hitzorduak implements Serializable{
     @Column(name = "ordaindutakoa", precision = 10, scale = 2)
     private BigDecimal ordaindutakoa;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "id_langilea")
     private Langileak langilea;
 
