@@ -14,7 +14,7 @@ import java.util.*;
 public class Talde_controller {
 
 	@Autowired
-	TaldeServiceImpl taldeService; 
+	Talde_ServiceImpl taldeService; 
 	
     @GetMapping("")
     public ResponseEntity<List<Taldeak>> getAllTaldeak() {

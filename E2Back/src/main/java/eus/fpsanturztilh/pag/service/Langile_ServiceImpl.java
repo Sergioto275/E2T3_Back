@@ -7,7 +7,7 @@ import eus.fpsanturztilh.pag.model.*;
 import eus.fpsanturztilh.pag.repository.*;
 
 @Service
-public class LangileServiceImpl implements Langile_service {
+public class Langile_ServiceImpl implements Langile_service {
 	@Autowired
 	Langile_repository langileRepository; 
 	

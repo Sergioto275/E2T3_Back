@@ -9,7 +9,7 @@ import eus.fpsanturztilh.pag.model.*;
 import eus.fpsanturztilh.pag.repository.*;
 
 @Service
-public class Ticket_lerroServiceImpl implements Ticket_lerro_service {
+public class Ticket_lerro_ServiceImpl implements Ticket_lerro_service {
 	@Autowired
 	Ticket_lerro_repository ticket_lerroRepository; 
 	
