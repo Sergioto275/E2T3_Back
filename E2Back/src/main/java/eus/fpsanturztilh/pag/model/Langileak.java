@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.time.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -21,7 +22,7 @@ public class Langileak implements Serializable{
 	
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column(nullable = false)
     private String izena;
@@ -32,6 +33,9 @@ public class Langileak implements Serializable{
     @ManyToOne
     @JoinColumn(name = "kodea", nullable = false)
     private Taldeak taldea;
+    
+    @OneToMany (mappedBy = "langile")
+    private List <Produktu_mugimenduak> mugimenduak;
 
     @Column(name = "sortze_data", updatable = false)
     private LocalDateTime sortzeData = LocalDateTime.now();
