@@ -9,7 +9,7 @@ import eus.fpsanturztilh.pag.model.*;
 import eus.fpsanturztilh.pag.repository.*;
 
 @Service
-public class HitzorduServiceImpl implements Hitzordu_service {
+public class Hitzordu_ServiceImpl implements Hitzordu_service {
 	@Autowired
 	Hitzordu_repository hitzorduRepository; 
 	

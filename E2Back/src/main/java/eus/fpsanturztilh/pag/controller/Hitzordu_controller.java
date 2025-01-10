@@ -14,7 +14,7 @@ import java.util.*;
 public class Hitzordu_controller {
 
 	@Autowired
-	HitzorduServiceImpl hitzorduService; 
+	Hitzordu_ServiceImpl hitzorduService; 
 	
     @GetMapping("")
     public ResponseEntity<List<Hitzorduak>> getAllHitzorduak() {

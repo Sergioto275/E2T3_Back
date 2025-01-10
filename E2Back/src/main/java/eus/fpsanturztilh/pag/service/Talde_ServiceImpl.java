@@ -7,7 +7,7 @@ import eus.fpsanturztilh.pag.model.*;
 import eus.fpsanturztilh.pag.repository.*;
 
 @Service
-public class TaldeServiceImpl implements Talde_service {
+public class Talde_ServiceImpl implements Talde_service {
 	@Autowired
 	Talde_repository taldeRepository; 
 	

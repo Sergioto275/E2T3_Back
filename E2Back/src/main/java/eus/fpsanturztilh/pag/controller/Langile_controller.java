@@ -14,7 +14,7 @@ import java.util.*;
 public class Langile_controller {
 
 	@Autowired
-	LangileServiceImpl langileService;
+	Langile_ServiceImpl langileService;
 	
 	@Autowired
 	Talde_service taldeService; 

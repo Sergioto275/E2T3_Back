@@ -13,8 +13,8 @@ import java.time.*;
 @AllArgsConstructor
 @ToString
 @Entity
-@Table(name = "kolore_historialak")
-public class Kolore_historiala implements Serializable{
+@Table(name = "material_maileguaK")
+public class Material_mailegua implements Serializable{
 
 	/**
 	 * 
@@ -25,23 +25,18 @@ public class Kolore_historiala implements Serializable{
     private Integer id;
 
    // @OneToOne
-   // @JoinColumn(name = "id_bezeroa")
-   // private Bezeroak bezeroa;
+   // @JoinColumn(name = "id_material")
+   // private Materialak materiala;
 
     //@OneToOne
-    //@JoinColumn(name = "id_produktua")
-    //private Produktuak produktua;
+    //@JoinColumn(name = "id_langilea")
+    //private Langileak langilea;
     
     @Column(nullable = false)
-    private LocalTime data;
+    private LocalTime hasiera_data;
     
     @Column(nullable = false)
-    private double kantitatea;
-    
-    @Column(nullable = false)
-    private double bolumena;
-    
-    private String oharrak;
+    private LocalTime amaiera_data;
 
     @Column(name = "sortze_data", updatable = false)
     private LocalDateTime sortzeData = LocalDateTime.now();
