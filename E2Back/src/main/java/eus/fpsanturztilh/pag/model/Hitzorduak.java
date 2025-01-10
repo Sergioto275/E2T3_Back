@@ -16,6 +16,10 @@ import java.time.*;
 @Table(name = "hitzorduak")
 public class Hitzorduak implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -56,8 +60,9 @@ public class Hitzorduak implements Serializable{
     @Column(name = "ordaindutakoa", precision = 10, scale = 2)
     private BigDecimal ordaindutakoa;
 
- /*  @ManyToOne
-    @JoinColumn(name = "id_langilea*/
+    @OneToOne
+    @JoinColumn(name = "id_langilea")
+    private Langileak langilea;
 
     @Column(name = "sortze_data", updatable = false)
     private LocalDateTime sortzeData = LocalDateTime.now();
