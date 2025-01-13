@@ -2,10 +2,12 @@ package eus.fpsanturztilh.pag.model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -27,8 +29,8 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 @Entity
-@Table(name = "produktuak")
-public class Produktuak implements Serializable{
+@Table(name = "produktu_kategoria")
+public class Produktu_Kategoria implements Serializable{
 	/**
 	 * 
 	 */
@@ -40,26 +42,6 @@ public class Produktuak implements Serializable{
     
     @Column(nullable = false)
     private String izena;
-
-    @Column
-    private String deskribapena;
-    
-    @ManyToOne
-    @JoinColumn(name = "id_kategoria", nullable = false)
-    @JsonBackReference
-    private Produktu_Kategoria produktuKategoria;
-
-    @OneToMany (mappedBy = "produktu")
-    private List <Produktu_mugimenduak> mugimenduak;
-    
-    @Column(nullable = false)
-    private String marka;
-    
-    @Column(nullable = false)
-    private Integer stock;
-    
-    @Column(name = "stock_alerta", nullable = false)
-    private Integer stockAlerta;
     
     @Column(name = "sortze_data", updatable = false)
     private LocalDateTime sortzeData = LocalDateTime.now();
@@ -69,4 +51,8 @@ public class Produktuak implements Serializable{
 
     @Column(name = "ezabatze_data")
     private LocalDateTime ezabatzeData;
+    
+    @OneToMany(mappedBy = "produktuKategoria", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Produktuak> produktuak;
 }
