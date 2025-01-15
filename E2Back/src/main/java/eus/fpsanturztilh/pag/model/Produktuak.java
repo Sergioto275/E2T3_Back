@@ -3,21 +3,9 @@ package eus.fpsanturztilh.pag.model;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import com.fasterxml.jackson.annotation.*;
+import jakarta.persistence.*;
+import lombok.*;
 
 @Getter
 @Setter
@@ -26,29 +14,28 @@ import lombok.ToString;
 @ToString
 @Entity
 @Table(name = "produktuak")
-public class Produktuak implements Serializable{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	
+public class Produktuak implements Serializable {
+    private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     @Column(nullable = false)
     private String izena;
 
     @Column
     private String deskribapena;
     
-    //@ManyToOne
-    //@JoinColumn(name = "id_kategoria", nullable = false)
-    //private Produktu_kategoria produktuKategoria;
+    @ManyToOne
+    @JoinColumn(name = "id_kategoria", nullable = false)
+    @JsonBackReference
+    private Produktu_Kategoria produktuKategoria;
 
-    @OneToMany (mappedBy = "produktu")
-    private List <Produktu_mugimenduak> mugimenduak;
-    
+    @OneToMany(mappedBy = "produktu")
+    @JsonManagedReference("prod-mug")
+    private List<Produktu_mugimenduak> mugimenduak;
+
     @Column(nullable = false)
     private String marka;
     
