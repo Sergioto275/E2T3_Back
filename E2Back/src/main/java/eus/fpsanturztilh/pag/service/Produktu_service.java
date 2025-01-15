@@ -10,5 +10,5 @@ public interface Produktu_service {
     
     public Optional<Produktuak> find(Long id);
     
-    public Produktuak create(Produktuak produktu);
+    public Produktuak save(Produktuak produktu);    
 }

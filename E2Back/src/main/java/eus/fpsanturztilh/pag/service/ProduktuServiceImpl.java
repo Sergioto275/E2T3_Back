@@ -30,9 +30,8 @@ public class ProduktuServiceImpl implements Produktu_service{
     }
 	
 	@Override
-    public Produktuak create(Produktuak produktu)
+    public Produktuak save(Produktuak produktu)
     {
-		
 		return produktuakRepository.save(produktu);
     }
 }

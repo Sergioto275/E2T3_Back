@@ -32,7 +32,7 @@ public class ProduktuKategoriaServiceImpl implements Produktu_kategoria_service{
     }
 	
 	@Override
-    public Produktu_Kategoria create(Produktu_Kategoria produktu_kategoria)
+    public Produktu_Kategoria save(Produktu_Kategoria produktu_kategoria)
     {
 		
 		return produktuakKategoriaRepository.save(produktu_kategoria);

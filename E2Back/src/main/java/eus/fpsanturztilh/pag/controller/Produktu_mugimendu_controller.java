@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,6 +23,7 @@ import eus.fpsanturztilh.pag.service.Produktu_service;
 
 @RestController
 @RequestMapping("/api/produktu_mugimenduak")
+@CrossOrigin(origins = "http://localhost:8100")
 public class Produktu_mugimendu_controller {
 
 	@Autowired
@@ -48,20 +50,18 @@ public class Produktu_mugimendu_controller {
     	}
         return ResponseEntity.notFound().build();
 	}
-    
-    @PostMapping("")
-	public ResponseEntity<Produktu_mugimenduak> createMugimenduak(@RequestBody Produktu_mugimenduak mugimenduak) {
-    	Long id_produktu = mugimenduak.getProduktu().getId();
-    	Optional<Produktuak> produktuak_list = produktuService.find(id_produktu);
-    	
-    	Long id_langile = mugimenduak.getLangile().getId();
-    	Optional<Langileak> langileak_list = langileService.find(id_langile);
-    	
-    	if(produktuak_list.isPresent() && langileak_list.isPresent()) {
-    		mugimenduak.setProduktu(produktuak_list.get());
-    		mugimenduak.setLangile(langileak_list.get());
-    	}
-		return ResponseEntity.status(HttpStatus.CREATED).body(mugimenduService.create(mugimenduak));
-	}
+	
+	@PostMapping("")
+    public ResponseEntity<String> registrarMovimientos(@RequestBody List<Produktu_mugimenduak> movimientos) {
+        try {
+        	mugimenduService.registrarMovimientos(movimientos);
+
+            return new ResponseEntity<>("Movimientos registrados correctamente", HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
 
