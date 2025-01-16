@@ -22,7 +22,7 @@ public class Hitzorduak implements Serializable{
 	private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column(nullable = false)
     private Integer eserlekua;
