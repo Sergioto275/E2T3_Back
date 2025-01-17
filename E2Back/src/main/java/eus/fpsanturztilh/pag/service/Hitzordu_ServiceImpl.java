@@ -28,7 +28,7 @@ public class Hitzordu_ServiceImpl implements Hitzordu_service {
     }
 	
 	@Override
-    public Hitzorduak create(Hitzorduak hitzordu)
+    public Hitzorduak save(Hitzorduak hitzordu)
     {
 		return hitzorduRepository.save(hitzordu);
     }
