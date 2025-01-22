@@ -12,7 +12,6 @@ import java.util.*;
 @RestController
 @CrossOrigin(origins = "http://localhost:8100")  // Permite solicitudes desde la URL especificada
 @RequestMapping("/api/taldeak")
-@CrossOrigin(origins = "http://localhost:8100")
 public class Talde_controller {
 
 	@Autowired
