@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:8100")  // Permite solicitudes desde Ionic
 @RequestMapping("/api/langileak")
 public class Langile_controller {
 
@@ -18,7 +19,7 @@ public class Langile_controller {
 	
 	@Autowired
 	Talde_service taldeService; 
-	
+	 
     @GetMapping("")
     public ResponseEntity<List<Langileak>> getAllLangileak() {
     	
@@ -45,4 +46,3 @@ public class Langile_controller {
 		return ResponseEntity.status(HttpStatus.CREATED).body(langileService.create(langile));
 	}
 }
-

@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
-import java.math.*;
 import java.time.*;
 
 @Getter
@@ -26,7 +25,7 @@ public class Ticket_lerroa implements Serializable{
 
     @OneToOne
     @JoinColumn(name = "id_hitzordua")
-    private Hitzorduak hitzordua;
+    private Hitzorduak hitzorduaa;
 
     //@OneToOne
     //@JoinColumn(name = "id_zerbitzua")

@@ -1,13 +1,17 @@
 package eus.fpsanturztilh.pag.model;
 
-import java.io.Serializable;
+import java.sql.Date;
 import java.time.LocalDateTime;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,8 +25,9 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 @Entity
-@Table(name = "zerbitzuak")
-public class Zerbitzuak implements Serializable{
+@Table(name = "txandak")
+public class Txandak {
+	
 	/**
 	 * 
 	 */
@@ -30,20 +35,18 @@ public class Zerbitzuak implements Serializable{
 	
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    
-    @Column(nullable = false)
-    private String izena;
+    private Long id;
 
-    @Column(name = "etxeko_Prezioa", nullable = false)
-    private Double etxekoPrezioa;
+    @Column(nullable = false)
+    private String mota;
+
+    @Column(name = "data", nullable = false)
+    private Date data;
     
-    @Column(name = "kanpoko_Prezioa", nullable = false)
-    private Double kanpokoPrezioa;
-    
-    //@ManyToOne
-    //@JoinColumn(name = "id_kategoria", nullable = false)
-    //private Zerbitzu_kategoria zerbitzuKategoria;
+    @ManyToOne
+    @JoinColumn(name = "id_langilea", nullable= false)
+    @JsonManagedReference
+    private Langileak langileak;
     
     @Column(name = "sortze_data", updatable = false)
     private LocalDateTime sortzeData = LocalDateTime.now();
