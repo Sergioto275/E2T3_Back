@@ -35,4 +35,10 @@ public class MaterialaServiceImpl implements Materiala_service{
 		
 		return materialakRepository.save(materiala);
     }
+	
+	@Override
+    public Materialak save(Materialak materiala)
+    {
+		return materialakRepository.save(materiala);
+    }
 }
