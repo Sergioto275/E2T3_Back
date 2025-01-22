@@ -9,6 +9,6 @@ public interface Langile_service {
     
     public Optional<Langileak> find(Long id_langile);
     
-    public Langileak create(Langileak langile);
+    public Langileak save(Langileak langile);
     
 }

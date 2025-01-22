@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 @RestController
@@ -43,6 +44,19 @@ public class Langile_controller {
     	if(talde_list.isPresent()) {
     		langile.setTaldea(talde_list.get());
     	}
-		return ResponseEntity.status(HttpStatus.CREATED).body(langileService.create(langile));
+		return ResponseEntity.status(HttpStatus.CREATED).body(langileService.save(langile));
 	}
+    
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Langileak> deleteLangilea(@PathVariable Long id) {
+    	Optional<Langileak> langile_list = langileService.find(id);
+    	if (langile_list.isPresent()) {
+    	    Langileak existingLangilea = langile_list.get();
+    	    existingLangilea.setEzabatzeData(LocalDateTime.now());
+    	    langileService.save(existingLangilea);
+    	    return ResponseEntity.status(HttpStatus.OK).build();
+    	} else {
+    	    return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    	}
+    }
 }
