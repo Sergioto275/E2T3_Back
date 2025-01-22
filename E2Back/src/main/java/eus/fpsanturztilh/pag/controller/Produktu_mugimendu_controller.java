@@ -24,7 +24,6 @@ import eus.fpsanturztilh.pag.service.Produktu_service;
 @RestController
 @CrossOrigin(origins = "http://localhost:8100")  // Permite solicitudes desde Ionic
 @RequestMapping("/api/produktu_mugimenduak")
-@CrossOrigin(origins = "http://localhost:8100")
 public class Produktu_mugimendu_controller {
 
 	@Autowired

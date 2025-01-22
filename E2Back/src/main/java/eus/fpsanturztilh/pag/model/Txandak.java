@@ -3,6 +3,7 @@ package eus.fpsanturztilh.pag.model;
 import java.sql.Date;
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
@@ -45,7 +46,7 @@ public class Txandak {
     
     @ManyToOne
     @JoinColumn(name = "id_langilea", nullable= false)
-    @JsonManagedReference
+    @JsonBackReference("langile-txandak")
     private Langileak langileak;
     
     @Column(name = "sortze_data", updatable = false)

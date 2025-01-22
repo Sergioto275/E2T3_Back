@@ -13,7 +13,6 @@ import java.util.*;
 @RestController
 @CrossOrigin(origins = "http://localhost:8100")  // Permite solicitudes desde Ionic
 @RequestMapping("/api/hitzorduak")
-@CrossOrigin(origins = "http://localhost:8100")
 public class Hitzordu_controller {
 
 	@Autowired
