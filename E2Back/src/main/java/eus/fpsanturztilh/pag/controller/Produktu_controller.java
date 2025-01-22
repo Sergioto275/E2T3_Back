@@ -21,7 +21,6 @@ import eus.fpsanturztilh.pag.model.Produktu_Kategoria;
 import eus.fpsanturztilh.pag.model.Produktuak;
 import eus.fpsanturztilh.pag.service.ProduktuKategoriaServiceImpl;
 import eus.fpsanturztilh.pag.service.ProduktuServiceImpl;
-import eus.fpsanturztilh.pag.service.Produktu_kategoria_service;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:8100")  // Permite solicitudes desde Ionic
