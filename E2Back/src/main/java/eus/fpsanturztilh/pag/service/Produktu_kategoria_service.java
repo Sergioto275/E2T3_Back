@@ -11,5 +11,5 @@ public interface Produktu_kategoria_service {
     
     public Optional<Produktu_Kategoria> find(Long id);
     
-    public Produktu_Kategoria create(Produktu_Kategoria produktu_kategoria);
+    public Produktu_Kategoria save(Produktu_Kategoria produktu_kategoria);
 }

@@ -2,7 +2,6 @@ package eus.fpsanturztilh.pag.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.io.Serializable;
 import java.time.*;
 

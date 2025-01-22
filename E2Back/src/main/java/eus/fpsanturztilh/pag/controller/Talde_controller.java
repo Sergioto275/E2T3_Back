@@ -12,6 +12,7 @@ import java.util.*;
 @RestController
 @CrossOrigin(origins = "http://localhost:8100")  // Permite solicitudes desde Ionic
 @RequestMapping("/api/taldeak")
+@CrossOrigin(origins = "http://localhost:8100")
 public class Talde_controller {
 
 	@Autowired
