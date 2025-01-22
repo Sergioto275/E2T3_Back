@@ -11,4 +11,6 @@ public interface Produktu_mugimendua_service {
     
     public Produktu_mugimenduak create(Produktu_mugimenduak mugimendua);
     
+    public void registrarMovimientos(List<Produktu_mugimenduak> movimientos);
+    
 }
