@@ -7,9 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import eus.fpsanturztilh.pag.model.Produktu_Kategoria;
-import eus.fpsanturztilh.pag.model.Produktuak;
 import eus.fpsanturztilh.pag.repository.Produktu_kategoria_repository;
-import eus.fpsanturztilh.pag.repository.Produktuak_repository;
 
 @Service
 public class ProduktuKategoriaServiceImpl implements Produktu_kategoria_service{

@@ -2,9 +2,8 @@ package eus.fpsanturztilh.pag.model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
+import java.util.List;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,8 +13,8 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 @Entity
-@Table(name = "materialak")
-public class Materialak implements Serializable{
+@Table(name = "material_kategoria")
+public class Material_kategoria implements Serializable{
 	/**
 	 * 
 	 */
@@ -26,16 +25,8 @@ public class Materialak implements Serializable{
     private Long id;
     
     @Column(nullable = false)
-    private String etiketa;
-    
-    @Column(nullable = false)
     private String izena;
-
-    @ManyToOne
-    @JoinColumn(name = "id_kategoria", nullable = false)
-    @JsonBackReference
-    private Material_kategoria materialKategoria;
-
+    
     @Column(name = "sortze_data", updatable = false)
     private LocalDateTime sortzeData = LocalDateTime.now();
 
@@ -44,4 +35,8 @@ public class Materialak implements Serializable{
 
     @Column(name = "ezabatze_data")
     private LocalDateTime ezabatzeData;
+    
+    @OneToMany(mappedBy = "materialKategoria", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Materialak> materialak;
 }

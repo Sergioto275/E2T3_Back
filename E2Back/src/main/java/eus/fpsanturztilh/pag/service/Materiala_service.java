@@ -11,4 +11,6 @@ public interface Materiala_service {
     public Optional<Materialak> find(Long id);
     
     public Materialak create(Materialak material);
+    
+    public Materialak save(Materialak materiala);
 }
