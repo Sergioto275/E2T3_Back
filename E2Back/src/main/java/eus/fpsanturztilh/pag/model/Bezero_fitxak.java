@@ -3,16 +3,13 @@ package eus.fpsanturztilh.pag.model;
 import java.sql.Date;
 import java.time.LocalDateTime;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,8 +23,8 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 @Entity
-@Table(name = "txandak")
-public class Txandak {
+@Table(name = "bezero_fitxak")
+public class Bezero_fitxak {
 	
 	/**
 	 * 
@@ -39,15 +36,16 @@ public class Txandak {
     private Long id;
 
     @Column(nullable = false)
-    private String mota;
+    private String izena;
 
-    @Column(name = "data", nullable = false)
-    private Date data;
+    @Column(name = "abizena", nullable = false)
+    private String abizena;
     
-    @ManyToOne
-    @JoinColumn(name = "id_langilea", nullable= false)
-    @JsonBackReference("langile-txandak")
-    private Langileak langileak;
+    @Column(name = "telefonoa")
+    private String telefonoa;
+    
+    @Column(name = "azal_sentikorra")
+    private char azal_sentikorra;
     
     @Column(name = "sortze_data", updatable = false)
     private LocalDateTime sortzeData = LocalDateTime.now();

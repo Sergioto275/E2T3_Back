@@ -28,8 +28,9 @@ public class Taldeak implements Serializable{
     private String izena;
     
     @OneToMany(mappedBy = "taldea", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
+    @JsonBackReference("taldeak-langileak")
     private List<Langileak> langileak;
+
 
     @Column(name = "sortze_data", updatable = false)
     private LocalDateTime sortzeData = LocalDateTime.now();
