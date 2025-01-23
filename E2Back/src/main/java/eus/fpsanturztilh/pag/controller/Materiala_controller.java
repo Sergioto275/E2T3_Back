@@ -80,9 +80,9 @@ public class Materiala_controller {
         }
     }
     
-    @DeleteMapping("")
-    public ResponseEntity<Void> deleteMateriala(@RequestBody Materialak materiala) {
-    	Optional<Materialak> material = materialaService.find(materiala.getId());
+    @DeleteMapping("/id/{id}")
+    public ResponseEntity<Void> deleteMateriala(@PathVariable Long id) {
+    	Optional<Materialak> material = materialaService.find(id);
     	if (material.isPresent()) {
     	    Materialak existingMaterial = material.get();
     	    existingMaterial.setEzabatzeData(LocalDateTime.now());
