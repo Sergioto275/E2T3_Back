@@ -1,12 +1,13 @@
 package eus.fpsanturztilh.pag.model;
 
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.*;
 import lombok.*;
-import java.io.Serializable;
-import java.time.*;
-import java.util.List;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Getter
 @Setter
@@ -14,29 +15,30 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @AllArgsConstructor
 @ToString
 @Entity
-@Table(name = "langileak")
-public class Langileak implements Serializable {
-    private static final long serialVersionUID = 1L;
-    
+@Table(name = "zerbitzu_kategoria")
+public class Zerbitzu_kategoria implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+    private Integer id;
+    
     @Column(nullable = false)
     private String izena;
 
-    @Column(nullable = false)
-    private String abizenak;
-
-    @ManyToOne
-    @JoinColumn(name = "kodea", nullable = false)
-    @JsonBackReference
-    private Taldeak taldea;
+    @Column(name = "kolorea", nullable = false)
+    private boolean kolorea;
     
-    //@OneToMany(mappedBy = "langile")
-    //@JsonManagedReference("lang-mug")
-    //private List<Produktu_mugimenduak> mugimenduak;
-
+    @Column(name = "extra", nullable = false)
+    private boolean extra;
+    
+    @OneToMany(mappedBy = "zerbitzuKategoria", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Zerbitzuak> zerbitzuak;
+    
     @Column(name = "sortze_data", updatable = false)
     private LocalDateTime sortzeData = LocalDateTime.now();
 

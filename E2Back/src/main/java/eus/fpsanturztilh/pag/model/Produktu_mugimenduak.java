@@ -27,7 +27,7 @@ public class Produktu_mugimenduak implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "id_langilea", nullable = false)
-    @JsonBackReference("lang-mug")
+    //@JsonBackReference("lang-mug")
     private Langileak langile;
     
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
