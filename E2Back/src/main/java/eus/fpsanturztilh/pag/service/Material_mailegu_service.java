@@ -11,4 +11,6 @@ public interface Material_mailegu_service {
     
     public Material_mailegua create(Material_mailegua material_mailegua);
     
+    public void registrarMovimientos(List<Material_mailegua> movimientos);
+    
 }
