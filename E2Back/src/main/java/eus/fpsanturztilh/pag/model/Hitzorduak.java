@@ -6,6 +6,9 @@ import lombok.*;
 import java.io.Serializable;
 import java.math.*;
 import java.time.*;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Getter
 @Setter
@@ -53,6 +56,10 @@ public class Hitzorduak implements Serializable{
 
     @Column(nullable = false)
     private Character etxekoa;
+    
+    @OneToMany(mappedBy = "hitzordua")
+    @JsonManagedReference
+    private List<Ticket_lerroa> lerroak;
 
     @Column(name = "prezio_totala", precision = 10, scale = 2)
     private BigDecimal prezioTotala;

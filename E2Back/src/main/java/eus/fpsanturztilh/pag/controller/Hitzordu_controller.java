@@ -75,7 +75,7 @@ public class Hitzordu_controller {
             if(langileExistente.isPresent()) {
             	Langileak langile = langileExistente.get();
             	cita.setLangilea(langile);
-            	cita.setAmaieraOrduaErreala(LocalTime.now());
+            	cita.setHasieraOrduaErreala(LocalTime.now());
             	Hitzorduak citaActualizada = hitzorduService.save(cita);
                 return ResponseEntity.ok(citaActualizada);
             }
