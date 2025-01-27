@@ -8,6 +8,7 @@ import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.*;
 
 @RestController
@@ -17,6 +18,9 @@ public class Hitzordu_controller {
 
 	@Autowired
 	Hitzordu_ServiceImpl hitzorduService; 
+	
+	@Autowired
+	Langile_ServiceImpl langileService; 
 	
     @GetMapping("")
     public ResponseEntity<List<Hitzorduak>> getAllHitzorduak() {
@@ -57,6 +61,25 @@ public class Hitzordu_controller {
 
             Hitzorduak citaActualizada = hitzorduService.save(cita);
             return ResponseEntity.ok(citaActualizada);
+        } else {
+            return ResponseEntity.notFound().build(); 
+        }
+    }
+    
+    @PutMapping("/asignar/{id_langile}")
+    public ResponseEntity<Hitzorduak> asignarCita(@RequestBody Hitzorduak hitzordu, @PathVariable Long id_langile) {
+        Optional<Hitzorduak> citaExistente = hitzorduService.find(hitzordu.getId());
+        if (citaExistente.isPresent()) {
+            Hitzorduak cita = citaExistente.get();
+            Optional<Langileak> langileExistente = langileService.find(id_langile);
+            if(langileExistente.isPresent()) {
+            	Langileak langile = langileExistente.get();
+            	cita.setLangilea(langile);
+            	cita.setHasieraOrduaErreala(LocalTime.now());
+            	Hitzorduak citaActualizada = hitzorduService.save(cita);
+                return ResponseEntity.ok(citaActualizada);
+            }
+            return ResponseEntity.notFound().build(); 
         } else {
             return ResponseEntity.notFound().build(); 
         }

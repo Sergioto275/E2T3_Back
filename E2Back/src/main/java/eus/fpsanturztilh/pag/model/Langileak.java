@@ -36,7 +36,7 @@ public class Langileak implements Serializable {
     //@OneToMany(mappedBy = "langile")
     //@JsonManagedReference("lang-mug")
     //private List<Produktu_mugimenduak> mugimenduak;
-    
+
     @Column(name = "sortze_data", updatable = false)
     private LocalDateTime sortzeData = LocalDateTime.now();
 
