@@ -36,11 +36,30 @@ public class Talde_controller {
     
     @PostMapping("")
     public ResponseEntity<Taldeak> createTaldeak(@RequestBody Taldeak talde) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(taldeService.create(talde));
-	}
+        return ResponseEntity.status(HttpStatus.CREATED).body(taldeService.create(talde));
+    }
+    
+    
+    @PutMapping("/{kodea}")
+    public ResponseEntity<Taldeak> saveTaldea(@PathVariable String kodea, @RequestBody Taldeak taldeUpdated) {
+        Optional<Taldeak> talde_list = taldeService.find(kodea);
+        if (talde_list.isPresent()) {
+            Taldeak existingTaldea = talde_list.get();
+            
+            existingTaldea.setIzena(taldeUpdated.getIzena());
+            existingTaldea.setKodea(taldeUpdated.getKodea());
+            existingTaldea.setEguneratzeData(LocalDateTime.now());
+            
+            taldeService.save(existingTaldea); 
+            return ResponseEntity.status(HttpStatus.OK).body(existingTaldea);  // Devolver el objeto actualizado
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
     
     @DeleteMapping("/kodea/{kodea}")
-    public ResponseEntity<Taldeak> deleteLangilea(@PathVariable String kodea) {
+    public ResponseEntity<Taldeak> deleteTaldea(@PathVariable String kodea) {
     	Optional<Taldeak> talde_list = taldeService.find(kodea);
     	if (talde_list.isPresent()) {
     		Taldeak existingTaldea = talde_list.get();
