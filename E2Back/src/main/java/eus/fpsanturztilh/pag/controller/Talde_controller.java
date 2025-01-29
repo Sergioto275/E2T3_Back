@@ -34,9 +34,27 @@ public class Talde_controller {
         return ResponseEntity.notFound().build();
 	}
     
+ // Modificado para controlar la restauración de Taldeak borrados
     @PostMapping("")
     public ResponseEntity<Taldeak> createTaldeak(@RequestBody Taldeak talde) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(taldeService.create(talde));
+        // Verificar si existe un Talde con el mismo 'kodea' y que esté marcado como eliminado
+        Optional<Taldeak> existingTalde = taldeService.find(talde.getKodea());
+        
+        if (existingTalde.isPresent() && existingTalde.get().getEzabatzeData() != null) {
+            // Si existe y tiene 'ezabatzeData' (borrado), restauramos el Talde
+            Taldeak restoredTalde = existingTalde.get();
+            restoredTalde.setEzabatzeData(null);  // Restauramos el Talde eliminando la 'ezabatzeData'
+            restoredTalde.setIzena(talde.getIzena());  // Actualizamos el nombre
+            restoredTalde.setEguneratzeData(LocalDateTime.now());  // Actualizamos la fecha de actualización
+
+            // Guardamos el Talde restaurado
+            Taldeak updatedTalde = taldeService.save(restoredTalde);
+            return ResponseEntity.status(HttpStatus.CREATED).body(updatedTalde);
+        } else {
+            // Si no existe tal Talde o no está marcado como borrado, creamos uno nuevo
+            Taldeak newTalde = taldeService.create(talde);
+            return ResponseEntity.status(HttpStatus.CREATED).body(newTalde);
+        }
     }
     
     
