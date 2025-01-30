@@ -101,6 +101,19 @@ public class Bezero_fitxa_controller {
             return ResponseEntity.notFound().build();
         }
     }
+    
+    @DeleteMapping("")
+    public ResponseEntity<Bezero_fitxa> deleteCita(@RequestBody Bezero_fitxa bezero) {
+        Optional<Bezero_fitxa> bezeroExistente = bezero_fitxaService.find(bezero.getId());
+        if (bezeroExistente.isPresent()) {
+            Bezero_fitxa bezeroa = bezeroExistente.get();
+            bezeroa.setEzabatzeData(LocalDateTime.now());
+            Bezero_fitxa bezeroActualizada = bezero_fitxaService.save(bezeroa);
+            return ResponseEntity.ok(bezeroActualizada);
+        } else {
+            return ResponseEntity.notFound().build(); 
+        }
+    }
 
 
 }
