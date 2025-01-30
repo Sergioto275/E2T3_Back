@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 @RestController
@@ -31,6 +32,19 @@ public class Material_mailegua_controller {
     	}
         return ResponseEntity.notFound().build();
 	}
+    
+    @PutMapping("")
+    public ResponseEntity<Material_mailegua> editarMugimenduak(@RequestBody Material_mailegua mugimenduak) {
+        Optional<Material_mailegua> maileguExistente = mailegua_Service.find(mugimenduak.getId());
+        if (maileguExistente.isPresent()) {
+            Material_mailegua materialActualizado = maileguExistente.get();
+            materialActualizado.setAmaieraData(LocalDateTime.now());
+            mailegua_Service.save(materialActualizado);
+            return ResponseEntity.status(HttpStatus.OK).body(materialActualizado);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
     
 	@PostMapping("")
     public ResponseEntity<String> registrarMovimientos(@RequestBody List<Material_mailegua> movimientos) {

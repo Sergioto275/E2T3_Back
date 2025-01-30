@@ -35,10 +35,11 @@ public class Material_mailegu_ServiceImpl implements Material_mailegu_service {
     }
 	
 	@Override
-    public Material_mailegua create(Material_mailegua material_mailegua)
+    public Material_mailegua save(Material_mailegua material_mailegua)
     {
 		return maileguaRepository.save(material_mailegua);
     }
+	
 	
 	@Override
 	public void registrarMovimientos(List<Material_mailegua> movimientos) {
