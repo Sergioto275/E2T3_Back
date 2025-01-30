@@ -22,7 +22,7 @@ public class Produktu_mugimenduak implements Serializable {
     
     @ManyToOne
     @JoinColumn(name = "id_produktua", nullable = false)
-    @JsonBackReference("prod-mug")
+    @JsonManagedReference("prod-mug")
     private Produktuak produktu;
 
     @ManyToOne
