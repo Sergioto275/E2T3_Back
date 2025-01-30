@@ -22,19 +22,19 @@ public class Material_mailegua implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-   // @OneToOne
-   // @JoinColumn(name = "id_material")
-   // private Materialak materiala;
+    @OneToOne
+    @JoinColumn(name = "id_materiala", nullable = false)
+    private Materialak materiala;
 
-    //@OneToOne
-    //@JoinColumn(name = "id_langilea")
-    //private Langileak langilea;
+    @OneToOne
+    @JoinColumn(name = "id_langilea", nullable = false)
+    private Langileak langilea;
     
-    @Column(nullable = false)
-    private LocalTime hasiera_data;
+    @Column(name = "hasiera_data", nullable = false)
+    private LocalDateTime hasieraData;
     
-    @Column(nullable = false)
-    private LocalTime amaiera_data;
+    @Column(name = "amaiera_data")
+    private LocalDateTime amaieraData;
 
     @Column(name = "sortze_data", updatable = false)
     private LocalDateTime sortzeData = LocalDateTime.now();

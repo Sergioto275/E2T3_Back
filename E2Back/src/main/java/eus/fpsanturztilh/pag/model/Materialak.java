@@ -35,7 +35,7 @@ public class Materialak implements Serializable{
     @JoinColumn(name = "id_kategoria", nullable = false)
     @JsonBackReference
     private Material_kategoria materialKategoria;
-
+    
     @Column(name = "sortze_data", updatable = false)
     private LocalDateTime sortzeData = LocalDateTime.now();
 
