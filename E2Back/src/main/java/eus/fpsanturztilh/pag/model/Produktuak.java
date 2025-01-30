@@ -29,12 +29,16 @@ public class Produktuak implements Serializable {
     
     @ManyToOne
     @JoinColumn(name = "id_kategoria", nullable = false)
-    @JsonBackReference
+    @JsonBackReference("kategoria")
     private Produktu_Kategoria produktuKategoria;
 
     @OneToMany(mappedBy = "produktu")
-    @JsonManagedReference("prod-mug")
+    @JsonBackReference("prod-mug")
     private List<Produktu_mugimenduak> mugimenduak;
+    
+   // @OneToOne(mappedBy = "produktua")
+   // @JsonBackReference("kolore")
+   // private Kolore_historiala kolore;
 
     @Column(nullable = false)
     private String marka;

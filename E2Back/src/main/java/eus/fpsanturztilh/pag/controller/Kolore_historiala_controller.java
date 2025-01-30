@@ -34,7 +34,7 @@ public class Kolore_historiala_controller {
     
     @PostMapping("")
     public ResponseEntity<Kolore_historiala> createKoloreHistoriala(@RequestBody Kolore_historiala kolore_historiala) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(kolore_historialaService.create(kolore_historiala));
+		return ResponseEntity.status(HttpStatus.CREATED).body(kolore_historialaService.save(kolore_historiala));
 	}
 }
 

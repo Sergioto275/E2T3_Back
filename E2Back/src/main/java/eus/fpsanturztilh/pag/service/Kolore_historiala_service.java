@@ -9,6 +9,6 @@ public interface Kolore_historiala_service {
     
     public Optional<Kolore_historiala> find(Long id);
     
-    public Kolore_historiala create(Kolore_historiala kolore_historiala);
+    public Kolore_historiala save(Kolore_historiala kolore_historiala);
     
 }
