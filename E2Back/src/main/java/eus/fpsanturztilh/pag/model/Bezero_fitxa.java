@@ -5,8 +5,11 @@ import lombok.*;
 import java.io.Serializable;
 import java.time.*;
 import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Getter
 @Setter
@@ -14,25 +17,34 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @AllArgsConstructor
 @ToString
 @Entity
-@Table(name = "langileak")
-public class Langileak implements Serializable {
-    private static final long serialVersionUID = 1L;
-    
+@Table(name = "bezero_fitxak")
+public class Bezero_fitxa implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    
     @Column(nullable = false)
     private String izena;
-
-    @Column(nullable = false)
-    private String abizenak;
-
-    @ManyToOne
-    @JoinColumn(name = "kodea", nullable = false)
-    @JsonBackReference
-    private Taldeak taldea;
     
+    @Column(nullable = false)
+    private String abizena;
+    
+    @Column(nullable = false)
+    private String telefonoa;
+    
+    @Column(name="azal_sentikorra", nullable = false)
+    private String azalSentikorra;
+    
+    @OneToMany(mappedBy = "bezeroa", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonManagedReference("historial")
+    private List<Kolore_historiala> historiala;
+
     @Column(name = "sortze_data", updatable = false)
     private LocalDateTime sortzeData = LocalDateTime.now();
 
@@ -42,10 +54,5 @@ public class Langileak implements Serializable {
     @Column(name = "ezabatze_data")
     private LocalDateTime ezabatzeData;
 
-    // Agregar un método para mostrar el código del grupo
-    public String getTaldeaKodea() {
-        return taldea != null ? taldea.getKodea() : null;
-    }
-
-    // Opcionalmente, puedes crear un DTO si deseas exponer solo una parte de los datos del grupo
 }
+

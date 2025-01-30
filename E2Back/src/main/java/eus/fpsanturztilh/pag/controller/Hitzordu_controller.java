@@ -38,6 +38,18 @@ public class Hitzordu_controller {
         return ResponseEntity.notFound().build();
 	}
     
+    @GetMapping("/ticket")
+    public ResponseEntity<List<Hitzorduak>> getHitzorduakConPrecio() {
+        List<Hitzorduak> hitzorduakList = hitzorduService.getAll();
+        List<Hitzorduak> citasConPrecio = new ArrayList<>();
+        for (Hitzorduak hitzordu : hitzorduakList) {
+            if (hitzordu.getPrezioTotala() != null) {
+                citasConPrecio.add(hitzordu);
+            }
+        }
+        return ResponseEntity.ok(citasConPrecio);
+    }
+    
     @PostMapping("")
     public ResponseEntity<Hitzorduak> createHitzorduak(@RequestBody Hitzorduak hitzordu) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(hitzorduService.save(hitzordu));
