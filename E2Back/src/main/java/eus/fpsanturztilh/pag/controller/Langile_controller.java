@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:8100")  // Permite solicitudes desde la URL especificada
 @RequestMapping("/api/langileak")
 public class Langile_controller {
 
