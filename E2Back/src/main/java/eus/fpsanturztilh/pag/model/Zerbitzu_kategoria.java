@@ -1,12 +1,13 @@
 package eus.fpsanturztilh.pag.model;
 
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.*;
 import lombok.*;
-import java.io.Serializable;
-import java.time.*;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Getter
 @Setter
@@ -14,29 +15,30 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @AllArgsConstructor
 @ToString
 @Entity
-@Table(name = "ticket_lerroak")
-public class Ticket_lerroa implements Serializable{
-
+@Table(name = "zerbitzu_kategoria")
+public class Zerbitzu_kategoria implements Serializable{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    @ManyToOne
-    @JoinColumn(name = "id_hitzordua")
-    @JsonBackReference
-    private Hitzorduak hitzordua;
-
-    @OneToOne
-    @JoinColumn(name = "id_zerbitzua")
-    private Zerbitzuak zerbitzuak;
-
+    
     @Column(nullable = false)
-    private double prezioa;
+    private String izena;
 
+    @Column(name = "kolorea", nullable = false)
+    private boolean kolorea;
+    
+    @Column(name = "extra", nullable = false)
+    private boolean extra;
+    
+    @OneToMany(mappedBy = "zerbitzuKategoria", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Zerbitzuak> zerbitzuak;
+    
     @Column(name = "sortze_data", updatable = false)
     private LocalDateTime sortzeData = LocalDateTime.now();
 
@@ -45,6 +47,4 @@ public class Ticket_lerroa implements Serializable{
 
     @Column(name = "ezabatze_data")
     private LocalDateTime ezabatzeData;
-
 }
-

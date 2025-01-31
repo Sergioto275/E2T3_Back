@@ -30,13 +30,7 @@ public class Langileak implements Serializable {
     @ManyToOne
     @JoinColumn(name = "kodea", nullable = false)
     private Taldeak taldea;
-
-    @OneToMany(mappedBy = "langile")
-    private List<Produktu_mugimenduak> mugimenduak;
-
-    @OneToMany(mappedBy = "langileak", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Txandak> txandak;
-
+    
     @Column(name = "sortze_data", updatable = false)
     private LocalDateTime sortzeData = LocalDateTime.now();
 
@@ -45,4 +39,11 @@ public class Langileak implements Serializable {
 
     @Column(name = "ezabatze_data")
     private LocalDateTime ezabatzeData;
+
+    // Agregar un método para mostrar el código del grupo
+    public String getTaldeaKodea() {
+        return taldea != null ? taldea.getKodea() : null;
+    }
+
+    // Opcionalmente, puedes crear un DTO si deseas exponer solo una parte de los datos del grupo
 }

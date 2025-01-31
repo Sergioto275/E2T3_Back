@@ -2,6 +2,9 @@ package eus.fpsanturztilh.pag.model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -25,15 +28,16 @@ public class Zerbitzuak implements Serializable{
     @Column(nullable = false)
     private String izena;
 
-    @Column(name = "etxeko_Prezioa", nullable = false)
+    @Column(name = "etxeko_prezioa", nullable = false)
     private Double etxekoPrezioa;
-    
-    @Column(name = "kanpoko_Prezioa", nullable = false)
+
+    @Column(name = "kanpoko_prezioa", nullable = false)
     private Double kanpokoPrezioa;
     
-    //@ManyToOne
-    //@JoinColumn(name = "id_kategoria", nullable = false)
-    //private Zerbitzu_kategoria zerbitzuKategoria;
+    @ManyToOne
+    @JoinColumn(name = "id_kategoria", nullable = false)
+    @JsonBackReference
+    private Zerbitzu_kategoria zerbitzuKategoria;
     
     @Column(name = "sortze_data", updatable = false)
     private LocalDateTime sortzeData = LocalDateTime.now();

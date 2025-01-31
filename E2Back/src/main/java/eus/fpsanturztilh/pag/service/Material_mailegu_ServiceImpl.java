@@ -1,5 +1,6 @@
 package eus.fpsanturztilh.pag.service;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,12 @@ import eus.fpsanturztilh.pag.repository.*;
 public class Material_mailegu_ServiceImpl implements Material_mailegu_service {
 	@Autowired
 	Material_mailegua_repository maileguaRepository; 
+	
+	@Autowired
+	Materialak_repository materialRepository;
+	
+	@Autowired
+	Langile_repository langileRepository;
 	
 	@Override
 	public List<Material_mailegua> getAll()
@@ -28,8 +35,28 @@ public class Material_mailegu_ServiceImpl implements Material_mailegu_service {
     }
 	
 	@Override
-    public Material_mailegua create(Material_mailegua material_mailegua)
+    public Material_mailegua save(Material_mailegua material_mailegua)
     {
 		return maileguaRepository.save(material_mailegua);
+    }
+	
+	
+	@Override
+	public void registrarMovimientos(List<Material_mailegua> movimientos) {
+        for (Material_mailegua movimiento : movimientos) {
+        	Optional<Materialak> material = materialRepository.findById(movimiento.getMateriala().getId());
+        	if(material.isPresent()) {
+        		Materialak materialExistente = material.get();
+        		materialRepository.save(materialExistente);
+        		movimiento.setMateriala(materialExistente);
+        	}
+        	Optional<Langileak> langile = langileRepository.findById(movimiento.getLangilea().getId());
+        	if(langile.isPresent()) {
+        		Langileak langileExistente = langile.get();
+                movimiento.setLangilea(langileExistente);
+        	}
+        	movimiento.setHasieraData(LocalDateTime.now());
+        	maileguaRepository.save(movimiento);
+        }
     }
 }

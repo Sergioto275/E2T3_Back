@@ -62,9 +62,9 @@ public class Material_kategoria_controller {
     	return ResponseEntity.status(HttpStatus.CREATED).body(materialKatService.save(material));
 	}
 	
-	@DeleteMapping("")
-    public ResponseEntity<Void> deleteMateriala(@RequestBody Material_kategoria kat) {
-    	Optional<Material_kategoria> Kategoria = materialKatService.find(kat.getId());
+	@DeleteMapping("/id/{id}")
+    public ResponseEntity<Void> deleteMateriala(@PathVariable Long id) {
+    	Optional<Material_kategoria> Kategoria = materialKatService.find(id);
     	if (Kategoria.isPresent()) {
     		Material_kategoria existingKategori = Kategoria.get();
     		existingKategori.setEzabatzeData(LocalDateTime.now());

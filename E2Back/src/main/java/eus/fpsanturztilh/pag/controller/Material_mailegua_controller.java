@@ -7,10 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:8100")  // Permite solicitudes desde Ionic
+@CrossOrigin(origins = "http://localhost:8100")
 @RequestMapping("/api/material_mailegua")
 public class Material_mailegua_controller {
 
@@ -18,8 +19,7 @@ public class Material_mailegua_controller {
 	Material_mailegu_ServiceImpl mailegua_Service; 
 	
     @GetMapping("")
-    public ResponseEntity<List<Material_mailegua>> getAllMaileguak() {
-    	
+    public ResponseEntity<List<Material_mailegua>> getAllMaileguak() {	
         List<Material_mailegua> mailegua_list = mailegua_Service.getAll();
         return ResponseEntity.ok(mailegua_list);
 	}
@@ -33,9 +33,30 @@ public class Material_mailegua_controller {
         return ResponseEntity.notFound().build();
 	}
     
-    @PostMapping("")
-    public ResponseEntity<Material_mailegua> createMaileguak(@RequestBody Material_mailegua material_mailegua) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(mailegua_Service.create(material_mailegua));
-	}
+    @PutMapping("")
+    public ResponseEntity<Material_mailegua> editarMugimenduak(@RequestBody Material_mailegua mugimenduak) {
+        Optional<Material_mailegua> maileguExistente = mailegua_Service.find(mugimenduak.getId());
+        if (maileguExistente.isPresent()) {
+            Material_mailegua materialActualizado = maileguExistente.get();
+            materialActualizado.setAmaieraData(LocalDateTime.now());
+            mailegua_Service.save(materialActualizado);
+            return ResponseEntity.status(HttpStatus.OK).body(materialActualizado);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+    
+	@PostMapping("")
+    public ResponseEntity<String> registrarMovimientos(@RequestBody List<Material_mailegua> movimientos) {
+        try {
+        	mailegua_Service.registrarMovimientos(movimientos);
+
+            return new ResponseEntity<>("Mugimenduak ondo erregistratu dira", HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
 

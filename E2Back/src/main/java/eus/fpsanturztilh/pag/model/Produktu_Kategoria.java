@@ -37,6 +37,6 @@ public class Produktu_Kategoria implements Serializable{
     private LocalDateTime ezabatzeData;
     
     @OneToMany(mappedBy = "produktuKategoria", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
+    @JsonManagedReference("kategoria")
     private List<Produktuak> produktuak;
 }
