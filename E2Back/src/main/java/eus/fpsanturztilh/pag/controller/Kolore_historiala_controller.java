@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:8100")  // Permite solicitudes desde Ionic
 @RequestMapping("/api/kolore_historiala")
 public class Kolore_historiala_controller {
 
@@ -34,7 +35,7 @@ public class Kolore_historiala_controller {
     
     @PostMapping("")
     public ResponseEntity<Kolore_historiala> createKoloreHistoriala(@RequestBody Kolore_historiala kolore_historiala) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(kolore_historialaService.create(kolore_historiala));
+		return ResponseEntity.status(HttpStatus.CREATED).body(kolore_historialaService.save(kolore_historiala));
 	}
 }
 

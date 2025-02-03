@@ -6,6 +6,9 @@ import lombok.*;
 import java.io.Serializable;
 import java.math.*;
 import java.time.*;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Getter
 @Setter
@@ -22,7 +25,7 @@ public class Hitzorduak implements Serializable{
 	private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column(nullable = false)
     private Integer eserlekua;
@@ -53,12 +56,13 @@ public class Hitzorduak implements Serializable{
 
     @Column(nullable = false)
     private Character etxekoa;
+    
+    @OneToMany(mappedBy = "hitzordua")
+    @JsonManagedReference
+    private List<Ticket_lerroa> lerroak;
 
     @Column(name = "prezio_totala", precision = 10, scale = 2)
     private BigDecimal prezioTotala;
-
-    @Column(name = "ordaindutakoa", precision = 10, scale = 2)
-    private BigDecimal ordaindutakoa;
 
     @OneToOne
     @JoinColumn(name = "id_langilea")

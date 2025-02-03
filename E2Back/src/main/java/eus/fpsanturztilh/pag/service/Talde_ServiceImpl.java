@@ -26,8 +26,14 @@ public class Talde_ServiceImpl implements Talde_service {
     }
 	
 	@Override
-    public Taldeak create(Taldeak taldea)
+    public Taldeak save(Taldeak taldea)
     {
 		return taldeRepository.save(taldea);
     }
+
+	@Override
+	public Taldeak create(Taldeak talde) {
+		// TODO Auto-generated method stub
+		return taldeRepository.save(talde);
+	}
 }

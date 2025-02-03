@@ -9,6 +9,6 @@ public interface Hitzordu_service {
     
     public Optional<Hitzorduak> find(Long id);
     
-    public Hitzorduak create(Hitzorduak hitzordu);
+    public Hitzorduak save(Hitzorduak hitzordu);
     
 }

@@ -2,10 +2,11 @@ package eus.fpsanturztilh.pag.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.io.Serializable;
-import java.math.*;
 import java.time.*;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Getter
 @Setter
@@ -24,13 +25,14 @@ public class Ticket_lerroa implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "id_hitzordua")
+    @JsonBackReference
     private Hitzorduak hitzordua;
 
-    //@OneToOne
-    //@JoinColumn(name = "id_zerbitzua")
-    //private Zerbitzuak zerbitzuak;
+    @OneToOne
+    @JoinColumn(name = "id_zerbitzua")
+    private Zerbitzuak zerbitzuak;
 
     @Column(nullable = false)
     private double prezioa;

@@ -2,20 +2,9 @@ package eus.fpsanturztilh.pag.model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import com.fasterxml.jackson.annotation.*;
+import jakarta.persistence.*;
+import lombok.*;
 
 @Getter
 @Setter
@@ -24,26 +13,27 @@ import lombok.ToString;
 @ToString
 @Entity
 @Table(name = "produktu_mugimenduak")
-public class Produktu_mugimenduak implements Serializable{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	
+public class Produktu_mugimenduak implements Serializable {
+    private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
     @ManyToOne
     @JoinColumn(name = "id_produktua", nullable = false)
+    //@JsonManagedReference("prod-mug")
     private Produktuak produktu;
 
     @ManyToOne
     @JoinColumn(name = "id_langilea", nullable = false)
+    //@JsonBackReference("lang-mug")
     private Langileak langile;
     
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     @Column(nullable = false)
     private LocalDateTime data;
+
     
     @Column(nullable = false)
     private Integer kopurua;

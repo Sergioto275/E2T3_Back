@@ -28,7 +28,7 @@ public class Ticket_lerro_ServiceImpl implements Ticket_lerro_service {
     }
 	
 	@Override
-    public Ticket_lerroa create(Ticket_lerroa ticket_lerro)
+    public Ticket_lerroa save(Ticket_lerroa ticket_lerro)
     {
 		return ticket_lerroRepository.save(ticket_lerro);
     }

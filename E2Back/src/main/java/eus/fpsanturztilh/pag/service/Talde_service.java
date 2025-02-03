@@ -9,6 +9,7 @@ public interface Talde_service {
     
     public Optional<Taldeak> find(String kodea);
     
-    public Taldeak create(Taldeak taldea);
-    
+    public Taldeak create(Taldeak talde);
+
+	public Taldeak save(Taldeak talde);
 }

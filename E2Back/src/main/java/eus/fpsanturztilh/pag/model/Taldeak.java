@@ -2,9 +2,10 @@ package eus.fpsanturztilh.pag.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.io.Serializable;
 import java.time.*;
+import java.util.List;
+import com.fasterxml.jackson.annotation.*;
 
 @Getter
 @Setter
@@ -25,6 +26,11 @@ public class Taldeak implements Serializable{
 
     @Column(nullable = false)
     private String izena;
+    
+    @OneToMany(mappedBy = "taldea", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonBackReference("taldeak-langileak")
+    private List<Langileak> langileak;
+
 
     @Column(name = "sortze_data", updatable = false)
     private LocalDateTime sortzeData = LocalDateTime.now();
