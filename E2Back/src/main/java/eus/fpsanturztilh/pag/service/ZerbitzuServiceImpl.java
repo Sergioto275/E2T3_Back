@@ -30,7 +30,7 @@ public class ZerbitzuServiceImpl implements Zerbitzu_service{
     }
 	
 	@Override
-    public Zerbitzuak create(Zerbitzuak zerbitzu)
+    public Zerbitzuak save(Zerbitzuak zerbitzu)
     {
 		
 		return zerbitzuakRepository.save(zerbitzu);
