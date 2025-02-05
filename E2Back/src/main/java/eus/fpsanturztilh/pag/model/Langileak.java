@@ -6,6 +6,9 @@ import java.io.Serializable;
 import java.time.*;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 
 @Getter
 @Setter
@@ -35,6 +38,7 @@ public class Langileak implements Serializable {
     private List<Produktu_mugimenduak> mugimenduak;
 
     @OneToMany(mappedBy = "langileak", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonBackReference
     private List<Txandak> txandak;
 
     @Column(name = "sortze_data", updatable = false)

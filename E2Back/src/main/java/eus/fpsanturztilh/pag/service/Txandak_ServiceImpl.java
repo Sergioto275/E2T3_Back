@@ -31,6 +31,15 @@ public class Txandak_ServiceImpl implements Txandak_service {
     }
     
     @Override
+    public Txandak update(Txandak txandak) {
+        if (txandakRepository.existsById(txandak.getId())) {
+            return txandakRepository.save(txandak);
+        } else {
+            throw new RuntimeException("Txandak not found");
+        }
+    }
+    
+    @Override
     public List<Txandak> findByMota(String mota) {
         return txandakRepository.findByMota(mota);
     }
