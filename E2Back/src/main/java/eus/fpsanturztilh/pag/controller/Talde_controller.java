@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:8100")  // Permite solicitudes desde la URL especificada
+@CrossOrigin(origins = "http://localhost:8100")  // Permite solicitudes desde Ionic
 @RequestMapping("/api/taldeak")
 public class Talde_controller {
 
