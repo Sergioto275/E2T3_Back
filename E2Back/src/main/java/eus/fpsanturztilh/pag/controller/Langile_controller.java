@@ -1,7 +1,7 @@
 package eus.fpsanturztilh.pag.controller;
 
-import eus.fpsanturztilh.pag.model.*;
 import eus.fpsanturztilh.pag.service.*;
+import eus.fpsanturztilh.pag.model.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
@@ -38,7 +38,7 @@ public class Langile_controller {
     
     @PostMapping("")
     public ResponseEntity<Langileak> createLangilea(@RequestBody Langileak langile) {
-    	String kodea = langile.getTaldea().getKodea();
+    	String kodea = langile.getTaldea().getKooea();
     	Optional<Taldeak> talde_list = taldeService.find(kodea);
     	if(talde_list.isPresent()) {
     		langile.setTaldea(talde_list.get());
