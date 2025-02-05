@@ -32,13 +32,9 @@ public class Produktuak implements Serializable {
     @JsonBackReference("kategoria")
     private Produktu_Kategoria produktuKategoria;
 
-    @OneToMany(mappedBy = "produktu")
-    @JsonBackReference("prod-mug")
-    private List<Produktu_mugimenduak> mugimenduak;
-    
-   // @OneToOne(mappedBy = "produktua")
-   // @JsonBackReference("kolore")
-   // private Kolore_historiala kolore;
+   // @OneToMany(mappedBy = "produktu")
+    //@JsonBackReference("prod-mug")
+    //private List<Produktu_mugimenduak> mugimenduak;
 
     @Column(nullable = false)
     private String marka;

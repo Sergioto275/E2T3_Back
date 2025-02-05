@@ -13,7 +13,6 @@ import java.util.*;
 
 @RestController
 @RequestMapping("/api/ticket_lerroak")
-@CrossOrigin(origins = "http://localhost:8100")
 public class Ticket_lerro_controller {
 
 	@Autowired
