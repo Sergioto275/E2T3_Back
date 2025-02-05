@@ -26,9 +26,14 @@ public class Langile_ServiceImpl implements Langile_service {
     }
 	
 	@Override
-    public Langileak create(Langileak langile)
+    public Langileak save(Langileak langile)
     {
-		
 		return langileRepository.save(langile);
     }
+
+	@Override
+	public Langileak create(Langileak langile) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

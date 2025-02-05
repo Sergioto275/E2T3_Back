@@ -23,7 +23,7 @@ import eus.fpsanturztilh.pag.service.ProduktuKategoriaServiceImpl;
 import eus.fpsanturztilh.pag.service.ProduktuServiceImpl;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:8100")
+@CrossOrigin(origins = "http://localhost:8100")  // Permite solicitudes desde Ionic
 @RequestMapping("/api/produktuak")
 public class Produktu_controller {
 

@@ -5,10 +5,9 @@ import lombok.*;
 import java.io.Serializable;
 import java.time.*;
 import java.util.List;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
 @Getter
@@ -33,8 +32,14 @@ public class Langileak implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "kodea", nullable = false)
-    @JsonBackReference
     private Taldeak taldea;
+
+    @OneToMany(mappedBy = "langile")
+    private List<Produktu_mugimenduak> mugimenduak;
+
+    @OneToMany(mappedBy = "langileak", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonBackReference
+    private List<Txandak> txandak;
     
     @Column(name = "sortze_data", updatable = false)
     private LocalDateTime sortzeData = LocalDateTime.now();

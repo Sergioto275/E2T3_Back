@@ -7,5 +7,5 @@ import java.util.List;
 import org.springframework.data.jpa.repository.*;
 
 public interface Talde_repository extends JpaRepository<Taldeak, String> {
-	public List<Taldeak> findByIzena(String Izena);
+	public List<Taldeak> findByKodea(String kodea);
 }
