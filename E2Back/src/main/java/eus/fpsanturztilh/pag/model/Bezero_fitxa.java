@@ -4,9 +4,12 @@ import jakarta.persistence.*;
 import lombok.*;
 import java.io.Serializable;
 import java.time.*;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Getter
 @Setter
@@ -14,28 +17,33 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @AllArgsConstructor
 @ToString
 @Entity
-@Table(name = "ticket_lerroak")
-public class Ticket_lerroa implements Serializable{
+@Table(name = "bezero_fitxak")
+public class Bezero_fitxa implements Serializable{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
-    @ManyToOne
-    @JoinColumn(name = "id_hitzordua")
-    @JsonBackReference
-    private Hitzorduak hitzordua;
-
-    @OneToOne
-    @JoinColumn(name = "id_zerbitzua")
-    private Zerbitzuak zerbitzuak;
-
+    private Long id;
+    
     @Column(nullable = false)
-    private double prezioa;
+    private String izena;
+    
+    @Column(nullable = false)
+    private String abizena;
+    
+    @Column(nullable = false)
+    private String telefonoa;
+    
+    @Column(name="azal_sentikorra", nullable = false)
+    private String azalSentikorra;
+    
+    @OneToMany(mappedBy = "bezeroa", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonManagedReference("historial")
+    private List<Kolore_historiala> historiala;
 
     @Column(name = "sortze_data", updatable = false)
     private LocalDateTime sortzeData = LocalDateTime.now();

@@ -28,7 +28,7 @@ public class Kolore_historiala_ServiceImpl implements Kolore_historiala_service 
     }
 	
 	@Override
-    public Kolore_historiala create(Kolore_historiala kolore_hist)
+    public Kolore_historiala save(Kolore_historiala kolore_hist)
     {
 		return kolore_historialaRepository.save(kolore_hist);
     }
