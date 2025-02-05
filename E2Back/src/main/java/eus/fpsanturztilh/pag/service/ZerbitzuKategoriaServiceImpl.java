@@ -30,7 +30,7 @@ public class ZerbitzuKategoriaServiceImpl implements Zerbitzu_kategoria_service{
     }
 	
 	@Override
-    public Zerbitzu_kategoria create(Zerbitzu_kategoria zerbitzu_kategoria)
+    public Zerbitzu_kategoria save(Zerbitzu_kategoria zerbitzu_kategoria)
     {
 		return zerbitzuakKategoriaRepository.save(zerbitzu_kategoria);
     }
