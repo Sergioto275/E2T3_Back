@@ -5,8 +5,7 @@ import lombok.*;
 import java.io.Serializable;
 import java.time.*;
 import java.util.List;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 
 @Getter
 @Setter
@@ -30,7 +29,6 @@ public class Langileak implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "kodea", nullable = false)
-    @JsonBackReference
     private Taldeak taldea;
     
     @Column(name = "sortze_data", updatable = false)
