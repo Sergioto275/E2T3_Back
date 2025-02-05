@@ -44,9 +44,12 @@ public class Langileak implements Serializable {
     private LocalDateTime ezabatzeData;
 
     // Agregar un método para mostrar el código del grupo
-    public String getTaldeaKodea() {
+    public String getTaldeKodea() {
         return taldea != null ? taldea.getKodea() : null;
     }
 
+    public String getTaldeIzena() {
+        return taldea != null ? taldea.getIzena() : null;
+    }
     // Opcionalmente, puedes crear un DTO si deseas exponer solo una parte de los datos del grupo
 }
