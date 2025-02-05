@@ -10,5 +10,5 @@ public interface Zerbitzu_service {
     
     public Optional<Zerbitzuak> find(Long id);
     
-    public Zerbitzuak create(Zerbitzuak zerbitzu);
+    public Zerbitzuak save(Zerbitzuak zerbitzu);
 }
