@@ -34,15 +34,15 @@ public class Material_mailegua_controller {
 	}
     
     @PutMapping("")
-    public ResponseEntity<Material_mailegua> editarMugimenduak(@RequestBody Material_mailegua mugimenduak) {
-        Optional<Material_mailegua> maileguExistente = mailegua_Service.find(mugimenduak.getId());
-        if (maileguExistente.isPresent()) {
-            Material_mailegua materialActualizado = maileguExistente.get();
-            materialActualizado.setAmaieraData(LocalDateTime.now());
-            mailegua_Service.save(materialActualizado);
-            return ResponseEntity.status(HttpStatus.OK).body(materialActualizado);
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+    public ResponseEntity<String> terminarMugimenduak(@RequestBody List<Material_mailegua> mugimenduak) {
+        try {
+        	mailegua_Service.terminarMovimientos(mugimenduak);
+
+            return new ResponseEntity<>("Mugimenduak ondo erregistratu dira", HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     
