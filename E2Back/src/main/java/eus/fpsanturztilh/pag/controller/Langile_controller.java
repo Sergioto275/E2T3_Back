@@ -39,7 +39,7 @@ public class Langile_controller {
     
     @PostMapping("")
     public ResponseEntity<Langileak> createLangilea(@RequestBody Langileak langile) {
-    	String kodea = langile.getTaldea().getKooea();
+    	String kodea = langile.getTaldea().getKodea();
     	Optional<Taldeak> talde_list = taldeService.find(kodea);
     	if(talde_list.isPresent()) {
     		langile.setTaldea(talde_list.get());

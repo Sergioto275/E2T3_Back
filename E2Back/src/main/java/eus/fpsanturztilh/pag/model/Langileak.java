@@ -37,9 +37,9 @@ public class Langileak implements Serializable {
     @OneToMany(mappedBy = "langile")
     private List<Produktu_mugimenduak> mugimenduak;
 
-    @OneToMany(mappedBy = "langileak", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonBackReference
-    private List<Txandak> txandak;
+  //  @OneToMany(mappedBy = "langileak", cascade = CascadeType.ALL, orphanRemoval = true)
+   // @JsonBackReference
+   // private List<Txandak> txandak;
     
     @Column(name = "sortze_data", updatable = false)
     private LocalDateTime sortzeData = LocalDateTime.now();
