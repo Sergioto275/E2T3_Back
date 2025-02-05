@@ -33,7 +33,6 @@ public class Langileak implements Serializable {
     @ManyToOne
     @JoinColumn(name = "kodea", nullable = false)
     private Taldeak taldea;
-<<<<<<< HEAD
 
     @OneToMany(mappedBy = "langile")
     private List<Produktu_mugimenduak> mugimenduak;
@@ -41,10 +40,7 @@ public class Langileak implements Serializable {
     @OneToMany(mappedBy = "langileak", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonBackReference
     private List<Txandak> txandak;
-
-=======
     
->>>>>>> origin/Luca
     @Column(name = "sortze_data", updatable = false)
     private LocalDateTime sortzeData = LocalDateTime.now();
 

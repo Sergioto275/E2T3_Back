@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:8100")  // Permite solicitudes desde la URL especificada
 @RequestMapping("/api/ordutegiak")
 @CrossOrigin(origins = "http://localhost:8100")
 public class Ordutegi_controller {
