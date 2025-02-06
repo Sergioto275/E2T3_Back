@@ -59,9 +59,9 @@ public class Materiala_controller {
 		return ResponseEntity.status(HttpStatus.CREATED).body(materialaService.create(materiala));
 	}
     
-    @PutMapping("")
-    public ResponseEntity<Materialak> editarMaterial(@RequestBody Materialak materiala) {
-        Optional<Materialak> materialExistente = materialaService.find(materiala.getId());
+    @PutMapping("/id/{id}")
+    public ResponseEntity<Materialak> editarMaterial(@PathVariable Long id, @RequestBody Materialak materiala) {
+        Optional<Materialak> materialExistente = materialaService.find(id);
         if (materialExistente.isPresent()) {
             Materialak materialActualizado = materialExistente.get();
             materialActualizado.setEtiketa(materiala.getEtiketa());

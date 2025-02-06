@@ -42,6 +42,18 @@ public class Material_mailegu_ServiceImpl implements Material_mailegu_service {
 	
 	
 	@Override
+	public void terminarMovimientos(List<Material_mailegua> movimientos) {
+        for (Material_mailegua movimiento : movimientos) {
+        	Optional<Material_mailegua> material_mailegu = maileguaRepository.findById(movimiento.getId());
+        	if(material_mailegu.isPresent()) {
+        		Material_mailegua maileguak = material_mailegu.get();
+        		maileguak.setAmaieraData(LocalDateTime.now());
+            	maileguaRepository.save(maileguak);
+        	}
+        }
+    }
+	
+	@Override
 	public void registrarMovimientos(List<Material_mailegua> movimientos) {
         for (Material_mailegua movimiento : movimientos) {
         	Optional<Materialak> material = materialRepository.findById(movimiento.getMateriala().getId());

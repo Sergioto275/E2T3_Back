@@ -14,12 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import eus.fpsanturztilh.pag.model.Produktu_mugimenduak;
-import eus.fpsanturztilh.pag.model.Produktuak;
-import eus.fpsanturztilh.pag.service.Langile_service;
-import eus.fpsanturztilh.pag.model.Langileak;
-import eus.fpsanturztilh.pag.service.Produktu_mugimenduServiceImpl;
-import eus.fpsanturztilh.pag.service.Produktu_service;
+import eus.fpsanturztilh.pag.model.*;
+import eus.fpsanturztilh.pag.service.*;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:8100")  // Permite solicitudes desde Ionic

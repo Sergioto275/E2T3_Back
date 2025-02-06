@@ -33,7 +33,7 @@ public class Materialak implements Serializable{
 
     @ManyToOne
     @JoinColumn(name = "id_kategoria", nullable = false)
-    @JsonBackReference
+    @JsonBackReference("mat-kat")
     private Material_kategoria materialKategoria;
     
     @Column(name = "sortze_data", updatable = false)
@@ -44,4 +44,8 @@ public class Materialak implements Serializable{
 
     @Column(name = "ezabatze_data")
     private LocalDateTime ezabatzeData;
+    
+    public Long getKategoriaId() {
+        return materialKategoria != null ? materialKategoria.getId() : null;
+    }
 }

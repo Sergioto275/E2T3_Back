@@ -1,7 +1,7 @@
 package eus.fpsanturztilh.pag.controller;
 
-import eus.fpsanturztilh.pag.model.*;
 import eus.fpsanturztilh.pag.service.*;
+import eus.fpsanturztilh.pag.model.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;

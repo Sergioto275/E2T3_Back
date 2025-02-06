@@ -37,6 +37,6 @@ public class Material_kategoria implements Serializable{
     private LocalDateTime ezabatzeData;
     
     @OneToMany(mappedBy = "materialKategoria", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
+    @JsonManagedReference("mat-kat")
     private List<Materialak> materialak;
 }
