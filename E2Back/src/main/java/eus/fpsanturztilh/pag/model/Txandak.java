@@ -46,7 +46,6 @@ public class Txandak {
     
     @ManyToOne
     @JoinColumn(name = "id_langilea", nullable= false)
-    @JsonManagedReference
     private Langileak langileak;
     
     @Column(name = "sortze_data", updatable = false)
