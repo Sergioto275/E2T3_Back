@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
 @RestController
-@RequestMapping("/api/ordutegiak")
 @CrossOrigin(origins = "http://localhost:8100")
+@RequestMapping("/api/ordutegiak")
 public class Ordutegi_controller {
 
 	@Autowired
@@ -21,14 +21,14 @@ public class Ordutegi_controller {
 	Talde_service taldeService; 
 	
     @GetMapping("")
-    public ResponseEntity<List<Ordutegiak>> getAllLangileak() {
+    public ResponseEntity<List<Ordutegiak>> getAllOrdutegiak() {
     	
         List<Ordutegiak> ordutegiList = ordutegiService.getAll();
         return ResponseEntity.ok(ordutegiList);
 	}
     
     @GetMapping("/id/{id}")
-    public ResponseEntity<Ordutegiak> findLangilea(@PathVariable Long id) {
+    public ResponseEntity<Ordutegiak> findOrdutegiak(@PathVariable Long id) {
     	Optional<Ordutegiak> ordutegi_list = ordutegiService.find(id);
     	if(ordutegi_list.isPresent()) {
     		return ResponseEntity.ok(ordutegi_list.get());
