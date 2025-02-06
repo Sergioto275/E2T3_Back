@@ -12,6 +12,7 @@ import java.time.LocalTime;
 import java.util.*;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:8100")  // Permite solicitudes desde Ionic
 @RequestMapping("/api/ticket_lerroak")
 public class Ticket_lerro_controller {
 
