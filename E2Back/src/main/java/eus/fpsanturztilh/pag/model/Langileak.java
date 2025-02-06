@@ -32,10 +32,11 @@ public class Langileak implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "kodea", nullable = false)
+    @JsonBackReference("taldeak-langileak")
     private Taldeak taldea;
 
-    @OneToMany(mappedBy = "langile")
-    private List<Produktu_mugimenduak> mugimenduak;
+    //@OneToMany(mappedBy = "langile")
+    //private List<Produktu_mugimenduak> mugimenduak;
 
   //  @OneToMany(mappedBy = "langileak", cascade = CascadeType.ALL, orphanRemoval = true)
    // @JsonBackReference
