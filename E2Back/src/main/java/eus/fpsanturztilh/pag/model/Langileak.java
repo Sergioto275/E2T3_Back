@@ -7,6 +7,7 @@ import java.time.*;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
 @Getter
@@ -33,6 +34,13 @@ public class Langileak implements Serializable {
     @JoinColumn(name = "kodea", nullable = false)
     @JsonBackReference("taldeak-langileak")
     private Taldeak taldea;
+
+    //@OneToMany(mappedBy = "langile")
+    //private List<Produktu_mugimenduak> mugimenduak;
+
+  //  @OneToMany(mappedBy = "langileak", cascade = CascadeType.ALL, orphanRemoval = true)
+   // @JsonBackReference
+   // private List<Txandak> txandak;
     
     @Column(name = "sortze_data", updatable = false)
     private LocalDateTime sortzeData = LocalDateTime.now();
@@ -44,9 +52,12 @@ public class Langileak implements Serializable {
     private LocalDateTime ezabatzeData;
 
     // Agregar un método para mostrar el código del grupo
-    public String getTaldeaKodea() {
+    public String getTaldeKodea() {
         return taldea != null ? taldea.getKodea() : null;
     }
 
+    public String getTaldeIzena() {
+        return taldea != null ? taldea.getIzena() : null;
+    }
     // Opcionalmente, puedes crear un DTO si deseas exponer solo una parte de los datos del grupo
 }
