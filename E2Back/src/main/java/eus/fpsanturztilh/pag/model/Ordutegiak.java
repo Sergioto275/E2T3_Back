@@ -39,10 +39,10 @@ public class Ordutegiak implements Serializable{
     @Column(name = "amaiera_data", nullable = false)
     private LocalDate amaieraData;
 
-    @Column(name = "hasiera_ordua")
+    @Column(name = "hasiera_ordua", nullable = false)
     private LocalTime hasieraOrdua;
 
-    @Column(name = "amaiera_ordua")
+    @Column(name = "amaiera_ordua", nullable = false)
     private LocalTime amaieraOrdua;
     
     @Column(name = "sortze_data", updatable = false)
@@ -53,6 +53,17 @@ public class Ordutegiak implements Serializable{
 
     @Column(name = "ezabatze_data")
     private LocalDateTime ezabatzeData;
+    
+    public boolean hasInvalidFields() {
+        return taldea == null ||
+               eguna == null || eguna < 1 || eguna > 7 || // Suponiendo que representa días de la semana (1-7)
+               hasieraData == null ||
+               amaieraData == null ||
+               hasieraData.isAfter(amaieraData) || // La fecha de inicio no puede ser posterior a la de finalización
+               hasieraOrdua == null ||
+               amaieraOrdua == null ||
+               hasieraOrdua.isAfter(amaieraOrdua); // La hora de inicio no puede ser posterior a la de finalización
+    }
 
 }
 
