@@ -33,7 +33,7 @@ public class Materialak implements Serializable{
 
     @ManyToOne
     @JoinColumn(name = "id_kategoria", nullable = false)
-    @JsonBackReference
+    @JsonBackReference("mat-kat")
     private Material_kategoria materialKategoria;
     
     @Column(name = "sortze_data", updatable = false)
