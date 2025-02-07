@@ -7,4 +7,5 @@ import java.util.List;
 import org.springframework.data.jpa.repository.*;
 
 public interface Ordutegi_repository extends JpaRepository<Ordutegiak, Long> {
+    public List<Ordutegiak> findByTaldea(Taldeak taldea);
 }
