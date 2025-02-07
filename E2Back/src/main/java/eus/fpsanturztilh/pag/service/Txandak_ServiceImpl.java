@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import eus.fpsanturztilh.pag.model.Langileak;
 import eus.fpsanturztilh.pag.model.Txandak;
 import eus.fpsanturztilh.pag.repository.Txandak_repository;
 
@@ -42,5 +43,10 @@ public class Txandak_ServiceImpl implements Txandak_service {
     @Override
     public List<Txandak> findByMota(String mota) {
         return txandakRepository.findByMota(mota);
+    }
+    
+    @Override
+    public List<Txandak> findByLangile(Langileak langileak) {
+        return txandakRepository.findByLangileak(langileak);
     }
 }
