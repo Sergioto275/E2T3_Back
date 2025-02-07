@@ -20,6 +20,9 @@ public class Langile_controller {
 	
 	@Autowired
 	Talde_service taldeService; 
+	
+	@Autowired
+	Txandak_service txandakService; 
 	 
     @GetMapping("")
     public ResponseEntity<List<Langileak>> getAllLangileak() {
@@ -97,14 +100,29 @@ public class Langile_controller {
     
     @DeleteMapping("/{id}")
     public ResponseEntity<Langileak> deleteLangilea(@PathVariable Long id) {
-    	Optional<Langileak> langile_list = langileService.find(id);
-    	if (langile_list.isPresent()) {
-    	    Langileak existingLangilea = langile_list.get();
-    	    existingLangilea.setEzabatzeData(LocalDateTime.now());
-    	    langileService.save(existingLangilea);
-    	    return ResponseEntity.status(HttpStatus.OK).build();
-    	} else {
-    	    return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-    	}
+        Optional<Langileak> langileOpt = langileService.find(id);
+
+        if (langileOpt.isPresent()) {
+            Langileak existingLangilea = langileOpt.get();
+
+            // Obtener las txandak asociadas al langile
+            List<Txandak> txandakList = txandakService.findByLangile(existingLangilea);
+
+            // Asignar la fecha de eliminación a las txandak
+            LocalDateTime now = LocalDateTime.now();
+            for (Txandak txanda : txandakList) {
+                txanda.setEzabatzeData(now);
+                txandakService.update(txanda);
+            }
+
+            // Asignar la fecha de eliminación al langile
+            existingLangilea.setEzabatzeData(now);
+            langileService.save(existingLangilea);
+
+            return ResponseEntity.status(HttpStatus.OK).build();
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
+
 }

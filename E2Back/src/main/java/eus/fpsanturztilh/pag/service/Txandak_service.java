@@ -3,6 +3,7 @@ package eus.fpsanturztilh.pag.service;
 import java.util.List;
 import java.util.Optional;
 
+import eus.fpsanturztilh.pag.model.Langileak;
 import eus.fpsanturztilh.pag.model.Txandak;
 
 public interface Txandak_service {
@@ -15,4 +16,7 @@ public interface Txandak_service {
     public Txandak update(Txandak txandak);
     
     public List<Txandak> findByMota(String mota);
+    
+    public List<Txandak> findByLangile(Langileak langileak); // Nuevo método
+
 }

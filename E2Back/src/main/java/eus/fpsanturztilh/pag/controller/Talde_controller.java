@@ -18,6 +18,9 @@ public class Talde_controller {
 	@Autowired
 	Talde_ServiceImpl taldeService; 
 	
+	@Autowired
+	Ordutegi_ServiceImpl ordutegiService;
+	
     @GetMapping("")
     public ResponseEntity<List<Taldeak>> getAllTaldeak() {
     	
@@ -78,15 +81,30 @@ public class Talde_controller {
     
     @DeleteMapping("/kodea/{kodea}")
     public ResponseEntity<Taldeak> deleteTaldea(@PathVariable String kodea) {
-    	Optional<Taldeak> talde_list = taldeService.find(kodea);
-    	if (talde_list.isPresent()) {
-    		Taldeak existingTaldea = talde_list.get();
-    		existingTaldea.setEzabatzeData(LocalDateTime.now());
-    	    taldeService.save(existingTaldea);
-    	    return ResponseEntity.status(HttpStatus.OK).build();
-    	} else {
-    	    return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-    	}
+        Optional<Taldeak> taldeOpt = taldeService.find(kodea);
+
+        if (taldeOpt.isPresent()) {
+            Taldeak existingTaldea = taldeOpt.get();
+
+            // Obtener los ordutegis asociados al talde
+            List<Ordutegiak> ordutegiList = ordutegiService.findByTaldea(existingTaldea);
+
+            // Asignar la fecha de eliminación a los ordutegis
+            LocalDateTime now = LocalDateTime.now();
+            for (Ordutegiak ordutegi : ordutegiList) {
+                ordutegi.setEzabatzeData(now);
+                ordutegiService.save(ordutegi);
+            }
+
+            // Asignar la fecha de eliminación al talde
+            existingTaldea.setEzabatzeData(now);
+            taldeService.save(existingTaldea);
+
+            return ResponseEntity.status(HttpStatus.OK).build();
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
+
 }
 

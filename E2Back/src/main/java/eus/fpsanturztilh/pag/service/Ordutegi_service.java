@@ -11,4 +11,6 @@ public interface Ordutegi_service {
     
     public Ordutegiak save(Ordutegiak ordutegi);
     
+    public List<Ordutegiak> findByTaldea(Taldeak taldea);
+    
 }
