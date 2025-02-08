@@ -8,6 +8,8 @@ import eus.fpsanturztilh.pag.repository.*;
 
 @Service
 public class Ordutegi_ServiceImpl implements Ordutegi_service {
+	
+	
 	@Autowired
 	Ordutegi_repository ordutegiRepository; 
 	
@@ -29,5 +31,10 @@ public class Ordutegi_ServiceImpl implements Ordutegi_service {
     public Ordutegiak save(Ordutegiak ordutegi)
     {
 		return ordutegiRepository.save(ordutegi);
+    }
+	
+	@Override
+	public List<Ordutegiak> findByTaldea(Taldeak taldea) {
+        return ordutegiRepository.findByTaldea(taldea);
     }
 }
