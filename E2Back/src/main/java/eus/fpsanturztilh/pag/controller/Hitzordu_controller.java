@@ -1,5 +1,6 @@
 package eus.fpsanturztilh.pag.controller;
 
+import eus.fpsanturtzilh.pag.dto.ServiciosPorCategoriaDTO;
 import eus.fpsanturztilh.pag.model.*;
 import eus.fpsanturztilh.pag.service.*;
 
@@ -108,6 +109,12 @@ public class Hitzordu_controller {
         } else {
             return ResponseEntity.notFound().build(); 
         }
+    }
+    
+    @GetMapping("/langileZerbitzuak")
+    public Map<Long, Map<String, Object>> getServiciosPorCategoria() {
+
+        return hitzorduService.obtenerServiciosPorCategoriaAgrupado();
     }
 }
 
