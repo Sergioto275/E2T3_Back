@@ -16,48 +16,34 @@ public class Erabiltzaile_controller {
     private Erabiltzaile_ServiceImpl erabiltzaileService;
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody Map<String, String> credentials) {
-        String username = credentials.get("username");
-        String password = credentials.get("pasahitza");
-
-        // Verificamos la autenticación usando el hash
+    public ResponseEntity<?> login(@RequestBody Erabiltzaile credentials) {
+        String username = credentials.getUsername();
+        String password = credentials.getPasahitza();
         if (erabiltzaileService.authenticate(username, password)) {
             Optional<Erabiltzaile> erabiltzaile = erabiltzaileService.findByUsername(username);
             if (erabiltzaile.isPresent()) {
-                return ResponseEntity.ok(Map.of("username", username, "rola", erabiltzaile.get().getRola()));
+            	System.out.println("good");
+                return ResponseEntity.ok(Map.of("username", username, "rola", erabiltzaile.get().getRola(), "status", true));
             }
         }
-        return ResponseEntity.status(401).body("Autentifikazioa huts egin du");
+        return ResponseEntity.status(401).body(Map.of("status", false));
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody Map<String, String> credentials) {
-        String username = credentials.get("username");
-        String password = credentials.get("pasahitza");  // Cambié a "pasahitza" para hacer match con tu JSON
-        String role = credentials.get("rola"); // Puede ser 'user', 'admin', etc.
+    public ResponseEntity<?> register(@RequestBody Erabiltzaile credentials) {
+        String username = credentials.getUsername();
+        String password = credentials.getPasahitza();
+        String role = credentials.getRola();
 
         if (username == null || password == null || role == null) {
             return ResponseEntity.status(400).body("Faltan datos para registrar el usuario");
         }
-
-        // Verificamos si el usuario ya existe
         Optional<Erabiltzaile> existingUser = erabiltzaileService.findByUsername(username);
         if (existingUser.isPresent()) {
             return ResponseEntity.status(409).body("El usuario ya existe");
         }
-
-        // Creamos un nuevo usuario con la contraseña hasheada
-        Erabiltzaile newUser = new Erabiltzaile();
         try {
-            // Hasheamos la contraseña antes de guardarla
-            String hashedPassword = erabiltzaileService.hashPassword(password);
-            newUser.setUsername(username);
-            newUser.setPasahitza(hashedPassword);
-            newUser.setRola(role);
-
-            // Guardamos el nuevo usuario en la base de datos
-            erabiltzaileService.saveUser(newUser);
-
+            erabiltzaileService.saveUser(credentials);
             return ResponseEntity.status(201).body("Usuario registrado con éxito");
         } catch (Exception e) {
             return ResponseEntity.status(500).body("Error al registrar el usuario: " + e.getMessage());

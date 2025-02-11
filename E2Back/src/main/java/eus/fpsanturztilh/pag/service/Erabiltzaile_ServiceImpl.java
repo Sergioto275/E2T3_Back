@@ -17,9 +17,7 @@ public class Erabiltzaile_ServiceImpl implements Erabiltzaile_service {
     @Autowired
     private Erabiltzaile_repository erabiltzaileRepository;
 
-    // Utilizamos SHA-256 para hacer el hash
     public String hashPassword(String rawPassword) throws NoSuchAlgorithmException {
-    	System.out.println(rawPassword);
         MessageDigest digest = MessageDigest.getInstance("SHA-256");
         byte[] encodedHash = digest.digest(rawPassword.getBytes(StandardCharsets.UTF_8)); // ✅ Forzar UTF-8
         StringBuilder hexString = new StringBuilder();
@@ -36,14 +34,9 @@ public class Erabiltzaile_ServiceImpl implements Erabiltzaile_service {
     public boolean authenticate(String username, String rawPassword) {
         try {
             Optional<Erabiltzaile> erabiltzaile = erabiltzaileRepository.findByUsername(username);
-            System.out.println(rawPassword);
             if (erabiltzaile.isPresent()) {
                 String hashedInput = hashPassword(rawPassword);
                 String storedHash = erabiltzaile.get().getPasahitza();
-
-                System.out.println("Hashed input password: " + hashedInput);
-                System.out.println("Stored password hash: " + storedHash);
-
                 return hashedInput.equals(storedHash);
             }
         } catch (NoSuchAlgorithmException e) {
@@ -55,7 +48,6 @@ public class Erabiltzaile_ServiceImpl implements Erabiltzaile_service {
     
     public Erabiltzaile saveUser(Erabiltzaile erabiltzaile) {
         try {
-            // Aquí deberías hashear la contraseña antes de guardarla
             String hashedPassword = hashPassword(erabiltzaile.getPasahitza());
             erabiltzaile.setPasahitza(hashedPassword);
             return erabiltzaileRepository.save(erabiltzaile);
