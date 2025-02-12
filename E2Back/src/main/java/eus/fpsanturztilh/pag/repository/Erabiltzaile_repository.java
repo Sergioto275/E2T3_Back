@@ -1,7 +1,12 @@
 package eus.fpsanturztilh.pag.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import eus.fpsanturztilh.pag.model.Erabiltzaileak;
+import java.util.Optional;
 
-public interface Erabiltzaile_repository extends JpaRepository<Erabiltzaileak, String> {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import eus.fpsanturztilh.pag.model.*;
+
+
+public interface Erabiltzaile_repository extends JpaRepository<Erabiltzaile, String> {
+    Optional<Erabiltzaile> findByUsername(String username);
 }

@@ -8,12 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.*;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:8100")  // Permite solicitudes desde Ionic
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/hitzorduak")
 public class Hitzordu_controller {
 
@@ -51,6 +52,24 @@ public class Hitzordu_controller {
         return ResponseEntity.ok(citasConPrecio);
     }
     
+    @GetMapping("/langileZerbitzuak")
+    public Map<Long, Map<String, Object>> getServiciosPorCategoria() {
+
+        return hitzorduService.obtenerServiciosPorCategoriaAgrupado();
+    }
+    
+    @GetMapping("/hoy")
+    public ResponseEntity<List<Hitzorduak>> getHitzorduakDeHoy() {
+        LocalDate hoy = LocalDate.now();
+        List<Hitzorduak> hitzorduakList = hitzorduService.getAll();
+        
+        List<Hitzorduak> citasDeHoy = hitzorduakList.stream()
+                .filter(h -> h.getData().equals(hoy) && h.getEzabatzeData() == null)
+                .toList();
+
+        return ResponseEntity.ok(citasDeHoy);
+    }
+
     @PostMapping("")
     public ResponseEntity<Hitzorduak> createHitzorduak(@RequestBody Hitzorduak hitzordu) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(hitzorduService.save(hitzordu));
@@ -109,12 +128,6 @@ public class Hitzordu_controller {
         } else {
             return ResponseEntity.notFound().build(); 
         }
-    }
-    
-    @GetMapping("/langileZerbitzuak")
-    public Map<Long, Map<String, Object>> getServiciosPorCategoria() {
-
-        return hitzorduService.obtenerServiciosPorCategoriaAgrupado();
     }
 }
 

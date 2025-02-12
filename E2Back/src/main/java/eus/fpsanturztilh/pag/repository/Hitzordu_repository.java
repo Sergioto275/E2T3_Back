@@ -4,13 +4,14 @@ import eus.fpsanturtzilh.pag.dto.ServiciosPorCategoriaDTO;
 import eus.fpsanturztilh.pag.model.Hitzorduak;
 import jakarta.persistence.Tuple;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.*;
 
 public interface Hitzordu_repository extends JpaRepository<Hitzorduak, Long> {
 	public List<Hitzorduak> findByIzena(String Izena);
-	
+		
 	@Query(value = "SELECT " +
 	        "l.id AS trabajador_id, " +
 	        "l.izena AS trabajador, " +
@@ -28,8 +29,5 @@ public interface Hitzordu_repository extends JpaRepository<Hitzorduak, Long> {
 	        "AND zc.extra = 0 " +
 	        "GROUP BY l.id, zc.id " +
 	        "ORDER BY l.izena, zc.izena", nativeQuery = true)
-	List<Tuple> contarServiciosPorCategoria();
-
-
-
+	public List<Tuple> contarServiciosPorCategoria();
 }
