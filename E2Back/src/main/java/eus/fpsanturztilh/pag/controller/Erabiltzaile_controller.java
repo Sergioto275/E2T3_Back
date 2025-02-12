@@ -3,6 +3,10 @@ package eus.fpsanturztilh.pag.controller;
 import eus.fpsanturztilh.pag.model.Erabiltzaile;
 import eus.fpsanturztilh.pag.service.Erabiltzaile_ServiceImpl;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.media.Content;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +23,14 @@ public class Erabiltzaile_controller {
     private Erabiltzaile_ServiceImpl erabiltzaileService;
 
     @PostMapping("/login")
-    
+    @Operation(
+    	    summary = "Saioa hasteko erabiltzailea egiaztatzea",
+    	    description = "Erabiltzailearen izena eta pasahitza egiaztatzea, eta arrakasta izanez gero, erabiltzailearen rolarekin batera erantzutea.",
+    	    responses = {
+    	        @ApiResponse(responseCode = "200", description = "Saioa hasita", content = @Content(mediaType = "application/json")),
+    	        @ApiResponse(responseCode = "401", description = "Egiaztapenak faltsuak dira", content = @Content(mediaType = "application/json"))
+    	    }
+    	)
     public ResponseEntity<?> login(@RequestBody Erabiltzaile credentials) {
         String username = credentials.getUsername();
         String password = credentials.getPasahitza();
@@ -34,6 +45,16 @@ public class Erabiltzaile_controller {
     }
 
     @PostMapping("/register")
+    @Operation(
+    	    summary = "Erabiltzaile berri bat erregistratzea",
+    	    description = "Erabiltzaile berri bat erregistratzen du, emandako datuekin, eta erabiltzailea existitzen ez bada, arrakastaz gordetzen du.",
+    	    responses = {
+    	        @ApiResponse(responseCode = "201", description = "Erabiltzailea arrakastaz erregistratua", content = @Content(mediaType = "application/json")),
+    	        @ApiResponse(responseCode = "400", description = "Erabiltzailearen datuak falta dira", content = @Content(mediaType = "application/json")),
+    	        @ApiResponse(responseCode = "409", description = "Erabiltzailea dagoeneko existitzen da", content = @Content(mediaType = "application/json")),
+    	        @ApiResponse(responseCode = "500", description = "Errore bat egon da erabiltzailea erregistratzean", content = @Content(mediaType = "application/json"))
+    	    }
+    	)
     public ResponseEntity<?> register(@RequestBody Erabiltzaile credentials) {
         String username = credentials.getUsername();
         String password = credentials.getPasahitza();

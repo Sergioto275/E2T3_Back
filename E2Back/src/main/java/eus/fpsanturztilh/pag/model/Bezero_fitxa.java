@@ -39,11 +39,11 @@ public class Bezero_fitxa implements Serializable{
     private String abizena;
     
     @Column(nullable = false)
-    @Schema(description = "Fitxaren esleitutako bezero telefonoa", example = "609 79 10 83")
+    @Schema(description = "Fitxaren esleitutako bezero telefonoa", example = "609791083")
     private String telefonoa;
     
     @Column(name="azal_sentikorra", nullable = false)
-    @Schema(description = "Bezeroaren azala sentikorra den balioa", example = "B (Bai)")
+    @Schema(description = "Bezeroaren azala sentikorra den balioa", example = "B")
     private String azalSentikorra;
     
     @OneToMany(mappedBy = "bezeroa", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
@@ -52,15 +52,15 @@ public class Bezero_fitxa implements Serializable{
     private List<Kolore_historiala> historiala;
 
     @Column(name = "sortze_data", updatable = false)
-    @Schema(description = "Bezeroaren fitxaren sortze dada (autogeneratua)")
+    @Schema(description = "Bezeroaren fitxaren sortze data (autogeneratua)")
     private LocalDateTime sortzeData = LocalDateTime.now();
 
     @Column(name = "eguneratze_data")
-    @Schema(description = "Bezeroaren fitxaren eguneratze dada (autogeneratua)")
+    @Schema(description = "Bezeroaren fitxaren eguneratze data (autogeneratua)")
     private LocalDateTime eguneratzeData;
 
     @Column(name = "ezabatze_data")
-    @Schema(description = "Bezeroaren fitxaren ezabatze dada (autogeneratua)")
+    @Schema(description = "Bezeroaren fitxaren ezabatze data (autogeneratua)")
     private LocalDateTime ezabatzeData;
 
 }
