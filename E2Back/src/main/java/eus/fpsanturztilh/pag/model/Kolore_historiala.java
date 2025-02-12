@@ -6,8 +6,8 @@ import java.io.Serializable;
 import java.time.*;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 
 @Getter
 @Setter
@@ -16,55 +16,53 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @ToString
 @Entity
 @Table(name = "kolore_historialak")
-public class Kolore_historiala implements Serializable{
+@Schema(name = "Kolore historialak", description = "Entitate honek kolore historialak errepresentatzen du")
+public class Kolore_historiala implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "id_bezeroa", nullable = false)
-    @JsonBackReference("historial")
-    private Bezero_fitxa bezeroa;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Schema(description = "Kolore historialak identifikatzaile bakarra (autogeneratua)", example = "1")
+	private Long id;
 
-    //@OneToOne
-    //@JoinColumn(name = "id_produktua")
-    //@JsonManagedReference("kolore")
-  //  @JsonIgnore
-   // private Produktuak produktua;
-    
-    @Column(name = "id_produktua", nullable = false)
-    private Long id_produktua;
-    
-    @Column(nullable = false)
-    private LocalDate data;
-    
-    @Column(nullable = false)
-    private double kantitatea;
-    
-    @Column(nullable = false)
-    private String bolumena;
-    
-    @Column(nullable = true)
-    private String oharrak;
+	@ManyToOne
+	@JoinColumn(name = "id_bezeroa", nullable = false)
+	@JsonBackReference("historial")
+	private Bezero_fitxa bezeroa;
 
-    @Column(name = "sortze_data", updatable = false)
-    private LocalDateTime sortzeData = LocalDateTime.now();
+	@Column(name = "id_produktua", nullable = false)
+	private Long id_produktua;
 
-    @Column(name = "eguneratze_data")
-    private LocalDateTime eguneratzeData;
+	@Column(nullable = false)
+	@Schema(description = "Kolore historialaren data", example = "2025-01-16")
+	private LocalDate data;
 
-    @Column(name = "ezabatze_data")
-    private LocalDateTime ezabatzeData;
-    
-   // public Long getid_produktua() {
-     //   return produktua != null ? produktua.getId() : null;
-   // }
+	@Column(nullable = false)
+	@Schema(description = "Kolore historialean erabili den kantitatea", example = "2")
+	private double kantitatea;
+
+	@Column(nullable = false)
+	@Schema(description = "Kolore historialean erabili den bolumena", example = "2 ml")
+	private String bolumena;
+
+	@Column(nullable = true)
+	@Schema(description = "Kolore historialaren oharrak", example = "Se ha teñido de rubio y luego a moreno")
+	private String oharrak;
+
+	@Column(name = "sortze_data", updatable = false)
+	@Schema(description = "Kolore historialaren sortze data (autogeneratua)")
+	private LocalDateTime sortzeData = LocalDateTime.now();
+
+	@Column(name = "eguneratze_data")
+	@Schema(description = "Kolore historialaren eguneratze data (autogeneratua)")
+	private LocalDateTime eguneratzeData;
+
+	@Column(name = "ezabatze_data")
+	@Schema(description = "Kolore historialaren ezabatze data (autogeneratua)")
+	private LocalDateTime ezabatzeData;
 
 }
-
