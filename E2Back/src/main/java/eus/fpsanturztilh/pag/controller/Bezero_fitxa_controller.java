@@ -2,6 +2,11 @@ package eus.fpsanturztilh.pag.controller;
 
 import eus.fpsanturztilh.pag.model.*;
 import eus.fpsanturztilh.pag.service.*;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.media.Content;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
@@ -13,6 +18,7 @@ import java.util.*;
 @RestController
 @RequestMapping("/api/bezero_fitxak")
 @CrossOrigin(origins = "http://localhost:8100")
+@Tag(name = "Bezero fitxa", description = "Bezero fitxa kudeatzeko kontroladorea")
 public class Bezero_fitxa_controller {
 
 	@Autowired
@@ -25,6 +31,13 @@ public class Bezero_fitxa_controller {
 	ProduktuServiceImpl produktuaService; 
 	
     @GetMapping("")
+    @Operation(
+    	    summary = "Bezero fitxa guztiak lortzea",
+    	    description = "Bezero fitxa guztiak itzultzen ditu.",
+    	    responses = {
+    	        @ApiResponse(responseCode = "200", description = "Eragiketa arrakastatsua", content = @Content(mediaType = "application/json"))
+    	    }
+    	)
     public ResponseEntity<List<Bezero_fitxa>> getAllBezeroFitxak() {
     	
         List<Bezero_fitxa> bezero_fitxa_list = bezero_fitxaService.getAll();
@@ -32,6 +45,14 @@ public class Bezero_fitxa_controller {
 	}
     
     @GetMapping("/id/{id}")
+    @Operation(
+    	    summary = "Bezero fitxa bat lortzea IDaren arabera",
+    	    description = "Bezero fitxa bat bilatzen du IDarekin eta aurkitzen bada itzultzen du.",
+    	    responses = {
+    	        @ApiResponse(responseCode = "200", description = "Bezero fitxa aurkitu da", content = @Content(mediaType = "application/json")),
+    	        @ApiResponse(responseCode = "404", description = "Bezero fitxa ez da aurkitu")
+    	    }
+    	)
     public ResponseEntity<Bezero_fitxa> findBezeroFitxak(@PathVariable Long id) {
     	Optional<Bezero_fitxa> bezero_fitxa_list = bezero_fitxaService.find(id);
     	if(bezero_fitxa_list.isPresent()) {
@@ -41,11 +62,26 @@ public class Bezero_fitxa_controller {
 	}
     
     @PostMapping("")
+    @Operation(
+    	    summary = "Bezero fitxa berri bat sortzea",
+    	    description = "Bezero fitxa berri bat sortzen du emandako datuekin.",
+    	    responses = {
+    	        @ApiResponse(responseCode = "201", description = "Bezero fitxa sortu da arrakastaz", content = @Content(mediaType = "application/json"))
+    	    }
+    	)
     public ResponseEntity<Bezero_fitxa> createBezeroFitxak(@RequestBody Bezero_fitxa bezero_fitxa) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(bezero_fitxaService.save(bezero_fitxa));
 	}
     
     @PutMapping("")
+    @Operation(
+    	    summary = "Bezero fitxa bat eguneratzea",
+    	    description = "IDarekin adierazitako bezero fitxa eguneratzen du.",
+    	    responses = {
+    	        @ApiResponse(responseCode = "200", description = "Bezero fitxa arrakastaz eguneratu da", content = @Content(mediaType = "application/json")),
+    	        @ApiResponse(responseCode = "404", description = "Bezero fitxa ez da aurkitu")
+    	    }
+    	)
     public ResponseEntity<Bezero_fitxa> updateBezero(@RequestBody Bezero_fitxa bezeroFitxa) {
         Optional<Bezero_fitxa> existingBezero = bezero_fitxaService.find(bezeroFitxa.getId());
         if (existingBezero.isPresent()) {
@@ -62,12 +98,6 @@ public class Bezero_fitxa_controller {
                 if (hist.getId() == null) {
                     // Si no tiene ID, es un nuevo historial -> Añadirlo
                     hist.setBezeroa(bezero);
-                 // Asignar producto si solo viene el ID
-                    //if (hist.getProduktua() == null && hist.getid_produktua() != null) {
-                      //  Produktuak produktua = produktuaService.find(hist.getid_produktua())
-                        //    .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
-                        //hist.setProduktua(produktua);
-                    //}
                     updatedHistoriala.add(hist);
                 } else {
                     // Si ya existe, buscarlo y actualizarlo
@@ -103,6 +133,14 @@ public class Bezero_fitxa_controller {
     }
     
     @DeleteMapping("")
+    @Operation(
+    	    summary = "Bezero fitxa bat ezabatzea",
+    	    description = "Bezero fitxa bat ezabatuta markatzen du, ezabatzeko data ezarriz.",
+    	    responses = {
+    	        @ApiResponse(responseCode = "200", description = "Bezero fitxa arrakastaz ezabatuta", content = @Content(mediaType = "application/json")),
+    	        @ApiResponse(responseCode = "404", description = "Bezero fitxa ez da aurkitu")
+    	    }
+    	)
     public ResponseEntity<Bezero_fitxa> deleteCita(@RequestBody Bezero_fitxa bezero) {
         Optional<Bezero_fitxa> bezeroExistente = bezero_fitxaService.find(bezero.getId());
         if (bezeroExistente.isPresent()) {

@@ -2,6 +2,8 @@ package eus.fpsanturztilh.pag.controller;
 
 import eus.fpsanturztilh.pag.model.Erabiltzaile;
 import eus.fpsanturztilh.pag.service.Erabiltzaile_ServiceImpl;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,11 +13,13 @@ import java.util.*;
 @RestController
 @CrossOrigin(origins = "*")  // Permite solicitudes desde Ionic
 @RequestMapping("/api/erabiltzaileak")
+@Tag(name = "Erabiltzailea", description = "Erabiltzaileak kudeatzeko kontroladorea")
 public class Erabiltzaile_controller {
     @Autowired
     private Erabiltzaile_ServiceImpl erabiltzaileService;
 
     @PostMapping("/login")
+    
     public ResponseEntity<?> login(@RequestBody Erabiltzaile credentials) {
         String username = credentials.getUsername();
         String password = credentials.getPasahitza();

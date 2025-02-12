@@ -15,6 +15,7 @@ public class Bezero_fitxa_ServiceImpl implements Bezero_fitxa_service{
 	@Override
 	public List<Bezero_fitxa> getAll()
 	{
+		// Metodo honekin lortzen dugu bezero fitxa guztiak lortzea
 		List<Bezero_fitxa> bezero_fitxa_list = bezeroFitxaRepository.findAll();
         return bezero_fitxa_list;
 	}
@@ -22,6 +23,7 @@ public class Bezero_fitxa_ServiceImpl implements Bezero_fitxa_service{
 	@Override
     public Optional<Bezero_fitxa> find(Long id)
     {
+    	// Metodo honekin bilatzen dugu bezero fitxa espezifiko bat id-tik bilatuz
     	Optional<Bezero_fitxa> bezero_fitxa_list = bezeroFitxaRepository.findById(id);
     	return bezero_fitxa_list;
     }
@@ -29,6 +31,7 @@ public class Bezero_fitxa_ServiceImpl implements Bezero_fitxa_service{
 	@Override
     public Bezero_fitxa save(Bezero_fitxa bezero_fitxa)
     {
+		// Honekin aldatutako aldaketak gordetzen dugu bezero fitxan
 		return bezeroFitxaRepository.save(bezero_fitxa);
     }
 }
