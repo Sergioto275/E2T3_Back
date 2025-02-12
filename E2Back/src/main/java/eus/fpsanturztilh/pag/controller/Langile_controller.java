@@ -87,7 +87,7 @@ public class Langile_controller {
 				if (newTalde.isPresent()) {
 					existingLangilea.setTaldea(newTalde.get());
 				} else {
-						return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null); // Taldearen kodea ez bada
+					return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null); // Taldearen kodea ez bada
 																						// baliozkoa
 				}
 			}

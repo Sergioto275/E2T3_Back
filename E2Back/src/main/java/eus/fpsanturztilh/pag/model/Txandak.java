@@ -1,11 +1,10 @@
 package eus.fpsanturztilh.pag.model;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.time.LocalDateTime;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -27,33 +26,41 @@ import lombok.ToString;
 @ToString
 @Entity
 @Table(name = "txandak")
-public class Txandak {
-	
+@Schema(name = "Txandak", description = "Entitate honek txandak errepresentatzen du")
+public class Txandak implements Serializable {
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
-    @Column(nullable = false)
-    private String mota;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Schema(description = "Txanden identifikatzaile bakarra (autogeneratua)", example = "1")
+	private Long id;
 
-    @Column(name = "data", nullable = false)
-    private Date data;
-    
-    @ManyToOne
-    @JoinColumn(name = "id_langilea", nullable= false)
-    private Langileak langileak;
-    
-    @Column(name = "sortze_data", updatable = false)
-    private LocalDateTime sortzeData = LocalDateTime.now();
+	@Column(nullable = false)
+	@Schema(description = "Txanden mota", example = "K")
+	private String mota;
 
-    @Column(name = "eguneratze_data")
-    private LocalDateTime eguneratzeData;
+	@Column(name = "data", nullable = false)
+	@Schema(description = "Txanden datak", example = "2025-01-15 09:16:31")
+	private Date data;
 
-    @Column(name = "ezabatze_data")
-    private LocalDateTime ezabatzeData;
+	@ManyToOne
+	@JoinColumn(name = "id_langilea", nullable = false)
+	@Schema(description = "Txanden esleitutako langilearen id-ak", example = "1")
+	private Langileak langileak;
+
+	@Column(name = "sortze_data", updatable = false)
+	@Schema(description = "Txanden sortze data (autogeneratua)")
+	private LocalDateTime sortzeData = LocalDateTime.now();
+
+	@Column(name = "eguneratze_data")
+	@Schema(description = "Txanden eguneratze data (autogeneratua)")
+	private LocalDateTime eguneratzeData;
+
+	@Column(name = "ezabatze_data")
+	@Schema(description = "Txanden ezabatze data (autogeneratua)")
+	private LocalDateTime ezabatzeData;
 }

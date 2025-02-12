@@ -27,7 +27,6 @@ public class Ordutegi_controller {
 	@Autowired
 	Talde_service taldeService;
 
-	// Obtener todos los horarios
 	@GetMapping("")
 	@Operation(summary = "Ordutegi guztiak lortzea", description = "Ordutegi guztiak itzultzen ditu. Ez badira aurkitzen, 204 No Content itzultzen du.", responses = {
 			@ApiResponse(responseCode = "200", description = "Eragiketa arrakastatsua", content = @Content(mediaType = "application/json")),
@@ -36,12 +35,11 @@ public class Ordutegi_controller {
 	public ResponseEntity<List<Ordutegiak>> getAllOrdutegiak() {
 		List<Ordutegiak> ordutegiList = ordutegiService.getAll();
 		if (ordutegiList.isEmpty()) {
-			return ResponseEntity.noContent().build(); // Si no hay horarios, devolver 204 No Content
+			return ResponseEntity.noContent().build();
 		}
-		return ResponseEntity.ok(ordutegiList); // Si hay horarios, devolverlos con código 200 OK
+		return ResponseEntity.ok(ordutegiList);
 	}
 
-	// Obtener un horario por ID
 	@GetMapping("/id/{id}")
 	@Operation(summary = "Ordutegi bat lortzea IDaren arabera", description = "Ordutegi bat bilatzen du IDarekin eta aurkitzen bada itzultzen du.", responses = {
 			@ApiResponse(responseCode = "200", description = "Ordutegia aurkitu da", content = @Content(mediaType = "application/json")),
@@ -49,12 +47,11 @@ public class Ordutegi_controller {
 	public ResponseEntity<Ordutegiak> getOrdutegiById(@PathVariable Long id) {
 		Optional<Ordutegiak> ordutegi = ordutegiService.find(id);
 		if (ordutegi.isPresent()) {
-			return ResponseEntity.ok(ordutegi.get()); // Si lo encontramos, devolver el horario
+			return ResponseEntity.ok(ordutegi.get());
 		}
-		return ResponseEntity.notFound().build(); // Si no se encuentra, devolver 404 Not Found
+		return ResponseEntity.notFound().build();
 	}
 
-	// Método adicional para actualizar un horario si fuera necesario
 	@PutMapping("/id/{id}")
 	@Operation(summary = "Ordutegi bat eguneratzea IDaren arabera", description = "Ordutegi bat eguneratzen du. Aurkitzen bada, eguneratu eta itzuli.", responses = {
 			@ApiResponse(responseCode = "200", description = "Ordutegia eguneratu da", content = @Content(mediaType = "application/json")),
@@ -63,13 +60,12 @@ public class Ordutegi_controller {
 		Optional<Ordutegiak> existingOrdutegi = ordutegiService.find(id);
 
 		if (existingOrdutegi.isPresent()) {
-			// Actualizar los campos del horario
-			ordutegi.setId(id); // Asegurarse de mantener el ID para la actualización
+			ordutegi.setId(id);
 			Ordutegiak updatedOrdutegi = ordutegiService.save(ordutegi);
-			return ResponseEntity.ok(updatedOrdutegi); // Devolver el horario actualizado
+			return ResponseEntity.ok(updatedOrdutegi);
 		}
 
-		return ResponseEntity.notFound().build(); // Si no se encuentra el horario, devolver 404 Not Found
+		return ResponseEntity.notFound().build();
 	}
 
 	@PostMapping("")
@@ -92,7 +88,6 @@ public class Ordutegi_controller {
 		}
 	}
 
-	// Eliminar un horario por ID
 	@DeleteMapping("/id/{id}")
 	@Operation(summary = "Ordutegi bat ezabatzea", description = "Ordutegi bat ezabatzen du IDaren arabera. Horretarako ezabatze data eguneratzen da.", responses = {
 			@ApiResponse(responseCode = "200", description = "Ordutegia arrakastaz ezabatuta", content = @Content(mediaType = "application/json")),
@@ -102,18 +97,12 @@ public class Ordutegi_controller {
 
 		if (ordutegi.isPresent()) {
 			Ordutegiak horario = ordutegi.get();
-			// Puedes agregar la lógica de establecer la fecha de eliminación aquí
-			// Por ejemplo, si tu entidad tiene un campo 'ezabatzeData', lo puedes
-			// actualizar:
-			horario.setEzabatzeData(LocalDateTime.now()); // Establece la fecha y hora actuales
-			ordutegiService.save(horario); // Guardamos el horario con la fecha de eliminación
-
-			// O si prefieres eliminarlo completamente:
-			ordutegiService.save(horario); // Llamamos al método de eliminación en el servicio
-			return ResponseEntity.ok("Horario eliminado correctamente"); // Retornar un mensaje de éxito
+			horario.setEzabatzeData(LocalDateTime.now());
+			ordutegiService.save(horario);
+			return ResponseEntity.ok("Horario eliminado correctamente");
 		}
 
-		return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Horario no encontrado"); // Si no existe el horario
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Horario no encontrado");
 	}
 
 }
