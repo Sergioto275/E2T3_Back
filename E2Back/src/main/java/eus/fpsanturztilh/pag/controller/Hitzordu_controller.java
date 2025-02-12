@@ -13,7 +13,7 @@ import java.time.LocalTime;
 import java.util.*;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:8100")  // Permite solicitudes desde Ionic
+@CrossOrigin(origins = "*")  // Permite solicitudes desde Ionic
 @RequestMapping("/api/hitzorduak")
 public class Hitzordu_controller {
 
