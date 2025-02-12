@@ -69,7 +69,7 @@ public class Material_mailegua_controller {
 		try {
 			mailegua_Service.registrarMovimientos(movimientos);
 
-			return new ResponseEntity<>("Mugimenduak ondo erregistratu dira", HttpStatus.OK);
+			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (IllegalArgumentException e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		} catch (Exception e) {

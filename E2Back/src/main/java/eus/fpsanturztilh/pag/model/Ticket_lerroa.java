@@ -35,6 +35,7 @@ public class Ticket_lerroa implements Serializable{
     private Hitzorduak hitzordua;
 
     @OneToOne
+    @JoinColumn(name = "id_zerbitzua")
 	@Schema(description = "Ticket lerroari esleitutako zerbitzuak")
     private Zerbitzuak zerbitzuak;
 
