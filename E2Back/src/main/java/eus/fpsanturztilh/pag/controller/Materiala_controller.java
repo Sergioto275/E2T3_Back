@@ -17,6 +17,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.media.Content;
+
 import eus.fpsanturztilh.pag.model.Material_kategoria;
 import eus.fpsanturztilh.pag.model.Materialak;
 import eus.fpsanturztilh.pag.service.MaterialKategoriaServiceImpl;
@@ -25,6 +30,7 @@ import eus.fpsanturztilh.pag.service.MaterialaServiceImpl;
 @RestController
 @CrossOrigin(origins = "http://localhost:8100")
 @RequestMapping("/api/materialak")
+@Tag(name = "Materialak", description = "Materialak kudeatzeko kontroladorea")
 public class Materiala_controller {
 
 	@Autowired
@@ -34,6 +40,14 @@ public class Materiala_controller {
 	MaterialKategoriaServiceImpl materialKategoriaService; 
 	
     @GetMapping("")
+    @Operation(
+    	    summary = "Material guztiak lortzea",
+    	    description = "Material guztiak itzultzen ditu.",
+    	    responses = {
+    	        @ApiResponse(responseCode = "200", description = "Eragiketa arrakastatsua", content = @Content(mediaType = "application/json"))
+    	    }
+    	)
+
     public ResponseEntity<List<Materialak>> getAllMaterialak() {
     	
         List<Materialak> materialakList = materialaService.getAll();
@@ -41,6 +55,14 @@ public class Materiala_controller {
 	}
     
     @GetMapping("/id/{id}")
+    @Operation(
+    	    summary = "Material bat lortzea IDaren arabera",
+    	    description = "Material bat bilatzen du IDarekin eta aurkitzen bada itzultzen du.",
+    	    responses = {
+    	        @ApiResponse(responseCode = "200", description = "Materiala aurkitu da", content = @Content(mediaType = "application/json")),
+    	        @ApiResponse(responseCode = "404", description = "Materiala ez da aurkitu")
+    	    }
+    	)
     public ResponseEntity<Materialak> findMateriala(@PathVariable Long id) {
     	Optional<Materialak> materiala_list = materialaService.find(id);
     	if(materiala_list.isPresent()) {
@@ -50,6 +72,14 @@ public class Materiala_controller {
 	}
     
     @PostMapping("")
+    @Operation(
+    	    summary = "Material berri bat sortzea",
+    	    description = "Material berri bat sortzen du eta kategoria bat gehitzen du.",
+    	    responses = {
+    	        @ApiResponse(responseCode = "201", description = "Materiala sortu da", content = @Content(mediaType = "application/json")),
+    	        @ApiResponse(responseCode = "400", description = "Materialaren kategoria ez da aurkitu")
+    	    }
+    	)
     public ResponseEntity<Materialak> createMateriala(@RequestBody Materialak materiala) {
     	Long id = materiala.getMaterialKategoria().getId();
     	Optional<Material_kategoria> kategoria_list = materialKategoriaService.find(id);
@@ -60,6 +90,15 @@ public class Materiala_controller {
 	}
     
     @PutMapping("/id/{id}")
+    @Operation(
+    	    summary = "Material bat eguneratzea",
+    	    description = "Material bat eguneratzen du eta kategoria berria jartzen du.",
+    	    responses = {
+    	        @ApiResponse(responseCode = "200", description = "Materiala eguneratu da", content = @Content(mediaType = "application/json")),
+    	        @ApiResponse(responseCode = "400", description = "Materialaren kategoria ez da aurkitu"),
+    	        @ApiResponse(responseCode = "404", description = "Materiala ez da aurkitu")
+    	    }
+    	)
     public ResponseEntity<Materialak> editarMaterial(@PathVariable Long id, @RequestBody Materialak materiala) {
         Optional<Materialak> materialExistente = materialaService.find(id);
         if (materialExistente.isPresent()) {
@@ -81,6 +120,14 @@ public class Materiala_controller {
     }
     
     @DeleteMapping("/id/{id}")
+    @Operation(
+    	    summary = "Material bat ezabatzea",
+    	    description = "Material bat ezabatzen du eta ezabatze data gehitzen du.",
+    	    responses = {
+    	        @ApiResponse(responseCode = "200", description = "Materiala arrakastaz ezabatuta", content = @Content(mediaType = "application/json")),
+    	        @ApiResponse(responseCode = "404", description = "Materiala ez da aurkitu")
+    	    }
+    	)
     public ResponseEntity<Void> deleteMateriala(@PathVariable Long id) {
     	Optional<Materialak> material = materialaService.find(id);
     	if (material.isPresent()) {

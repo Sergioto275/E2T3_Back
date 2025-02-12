@@ -56,7 +56,7 @@ public class Hitzorduak implements Serializable{
     private LocalTime amaieraOrduaErreala;
 
     @Column(nullable = false, length = 100)
-    @Schema(description = "Hitzorduen amaiera ordua erreala", example = "12:12:16")
+    @Schema(description = "Hitzorduen esleitutako bezero izena", example = "Pepe")
     private String izena;
 
     @Column(length = 9)

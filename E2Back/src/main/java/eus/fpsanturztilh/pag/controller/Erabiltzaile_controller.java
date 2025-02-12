@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
 @RestController
-@CrossOrigin(origins = "*")  // Permite solicitudes desde Ionic
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/erabiltzaileak")
 @Tag(name = "Erabiltzailea", description = "Erabiltzaileak kudeatzeko kontroladorea")
 public class Erabiltzaile_controller {

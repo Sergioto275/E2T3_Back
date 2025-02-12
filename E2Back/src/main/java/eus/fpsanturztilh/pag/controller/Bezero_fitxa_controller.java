@@ -17,7 +17,7 @@ import java.util.*;
 
 @RestController
 @RequestMapping("/api/bezero_fitxak")
-@CrossOrigin(origins = "http://localhost:8100")
+@CrossOrigin(origins = "http://localhost:8100") // Ionic-etik eskaerak egiteko aukera ematen du
 @Tag(name = "Bezero fitxa", description = "Bezero fitxa kudeatzeko kontroladorea")
 public class Bezero_fitxa_controller {
 
@@ -91,16 +91,16 @@ public class Bezero_fitxa_controller {
             bezero.setTelefonoa(bezeroFitxa.getTelefonoa());
             bezero.setAzalSentikorra(bezeroFitxa.getAzalSentikorra());
 
-            // Lista para mantener historiales actualizados
+            // Historialak eguneratuta edukitzeko zerrenda
             List<Kolore_historiala> updatedHistoriala = new ArrayList<>();
 
             for (Kolore_historiala hist : bezeroFitxa.getHistoriala()) {
                 if (hist.getId() == null) {
-                    // Si no tiene ID, es un nuevo historial -> Añadirlo
+                    // ID ez badu, historia berria da -> Gehitu
                     hist.setBezeroa(bezero);
                     updatedHistoriala.add(hist);
                 } else {
-                    // Si ya existe, buscarlo y actualizarlo
+                    // Lehendik badago, bilatu eta eguneratu
                     Optional<Kolore_historiala> existingHist = kolore_historialaService.find(hist.getId());
                     if (existingHist.isPresent()) {
                         Kolore_historiala existing = existingHist.get();
@@ -109,7 +109,7 @@ public class Bezero_fitxa_controller {
                         existing.setBolumena(hist.getBolumena());
                         existing.setOharrak(hist.getOharrak());
 
-                        // Si se eliminó, actualizar ezabatze_data
+                        // Ezabatu bada, eguneratu ezabatze_data
                         if (hist.getEzabatzeData() != null) {
                             existing.setEzabatzeData(LocalDateTime.now());
                         }
@@ -120,11 +120,11 @@ public class Bezero_fitxa_controller {
                 }
             }
 
-            // Reemplazar historial del bezero
+            // Ordeztu bezeroaren historia
             bezero.getHistoriala().clear();
             bezero.getHistoriala().addAll(updatedHistoriala);
 
-            // Guardar bezero con historial actualizado
+            // Gorde bezeroa historia eguneratuarekin
             bezero_fitxaService.save(bezero);
             return ResponseEntity.ok(bezero);
         } else {
