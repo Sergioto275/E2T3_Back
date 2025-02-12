@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:8100")  // Permite solicitudes desde la URL especificada
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/langileak")
 public class Langile_controller {
 
@@ -25,8 +25,7 @@ public class Langile_controller {
 	Txandak_service txandakService; 
 	 
     @GetMapping("")
-    public ResponseEntity<List<Langileak>> getAllLangileak() {
-    	
+    public ResponseEntity<List<Langileak>> getAllLangileak() {    	
         List<Langileak> langileakList = langileService.getAll();
         return ResponseEntity.ok(langileakList);
 	}
