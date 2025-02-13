@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:8100")
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/txandak")
 @Tag(name = "Txandak", description = "Txandak kudeatzeko kontroladorea")
 public class Txandak_controller {

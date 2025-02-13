@@ -63,8 +63,7 @@ public class Produktu_mugimendu_controller {
 	public ResponseEntity<String> registrarMovimientos(@RequestBody List<Produktu_mugimenduak> movimientos) {
 		try {
 			mugimenduService.registrarMovimientos(movimientos);
-
-			return new ResponseEntity<>("Movimientos registrados correctamente", HttpStatus.OK);
+			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (IllegalArgumentException e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		} catch (Exception e) {
