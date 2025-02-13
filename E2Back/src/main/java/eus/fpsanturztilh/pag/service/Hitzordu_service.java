@@ -1,6 +1,8 @@
 package eus.fpsanturztilh.pag.service;
 
 import java.util.*;
+
+import eus.fpsanturtzilh.pag.dto.ServiciosPorCategoriaDTO;
 import eus.fpsanturztilh.pag.model.*;
 
 public interface Hitzordu_service {
@@ -11,4 +13,5 @@ public interface Hitzordu_service {
     
     public Hitzorduak save(Hitzorduak hitzordu);
     
+	public Map<Long, Map<String, Object>> obtenerServiciosPorCategoriaAgrupado();
 }

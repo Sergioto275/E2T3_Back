@@ -3,6 +3,7 @@ package eus.fpsanturztilh.pag.service;
 import java.util.*;
 import eus.fpsanturztilh.pag.model.*;
 
+// Hemen sortzen dugu interfazea, metodoak erabiltzeko service erabiliz
 public interface Bezero_fitxa_service {
 	
 	public List<Bezero_fitxa> getAll();

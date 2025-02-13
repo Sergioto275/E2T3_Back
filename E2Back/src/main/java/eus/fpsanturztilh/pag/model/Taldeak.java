@@ -7,6 +7,8 @@ import java.time.*;
 import java.util.List;
 import com.fasterxml.jackson.annotation.*;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -14,32 +16,37 @@ import com.fasterxml.jackson.annotation.*;
 @ToString
 @Entity
 @Table(name = "taldeak")
-public class Taldeak implements Serializable{
-	
+@Schema(name = "Taldeak", description = "Entitate honek taldeak errepresentatzen du")
+public class Taldeak implements Serializable {
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-    @Id
-    private String kodea;
 
-    @Column(nullable = false)
-    private String izena;
-    
-    @OneToMany(mappedBy = "taldea", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference("taldeak-langileak")
-    private List<Langileak> langileak;
+	@Id
+	@Schema(description = "Taldearen identifikatzailea", example = "3PAG2")
+	private String kodea;
 
+	@Column(nullable = false)
+	@Schema(description = "Taldearen izena", example = "Multimedia")
+	private String izena;
 
-    @Column(name = "sortze_data", updatable = false)
-    private LocalDateTime sortzeData = LocalDateTime.now();
+	@OneToMany(mappedBy = "taldea", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonManagedReference("taldeak-langileak")
+	@Schema(description = "Taldeari esleitutako langileen zerrenda")
+	private List<Langileak> langileak;
 
-    @Column(name = "eguneratze_data")
-    private LocalDateTime eguneratzeData;
+	@Column(name = "sortze_data", updatable = false)
+	@Schema(description = "Taldearen sortze data (autogeneratua)")
+	private LocalDateTime sortzeData = LocalDateTime.now();
 
-    @Column(name = "ezabatze_data")
-    private LocalDateTime ezabatzeData;
+	@Column(name = "eguneratze_data")
+	@Schema(description = "Taldearen eguneratze data (autogeneratua)")
+	private LocalDateTime eguneratzeData;
+
+	@Column(name = "ezabatze_data")
+	@Schema(description = "Taldearen ezabatze data (autogeneratua)")
+	private LocalDateTime ezabatzeData;
 
 }
-
