@@ -30,6 +30,19 @@ public class Ordutegi_controller {
 	@Autowired
 	Talde_service taldeService;
 
+	@GetMapping("")
+	@Operation(summary = "Ordutegi guztiak lortzea", description = "Ordutegi guztiak itzultzen ditu. Ez badira aurkitzen, 204 No Content itzultzen du.", responses = {
+			@ApiResponse(responseCode = "200", description = "Eragiketa arrakastatsua", content = @Content(mediaType = "application/json")),
+			@ApiResponse(responseCode = "204", description = "Ez dago ordutegirik") })
+
+	public ResponseEntity<List<Ordutegiak>> getAllOrdutegiak() {
+		List<Ordutegiak> ordutegiList = ordutegiService.getAll();
+		if (ordutegiList.isEmpty()) {
+			return ResponseEntity.noContent().build();
+		}
+		return ResponseEntity.ok(ordutegiList);
+	}
+
 	@GetMapping("/{fechaDeInicio}/{fechaFin}")
 	@Operation(summary = "Ordutegi guztiak lortzea", description = "Ordutegi guztiak itzultzen ditu. Ez badira aurkitzen, 204 No Content itzultzen du.", responses = {
 	        @ApiResponse(responseCode = "200", description = "Eragiketa arrakastatsua", content = @Content(mediaType = "application/json")),
@@ -70,11 +83,7 @@ public class Ordutegi_controller {
 
 	    return ResponseEntity.ok(filteredList);
 	}
-
-
-
-
-
+	
 	@GetMapping("/id/{id}")
 	@Operation(summary = "Ordutegi bat lortzea IDaren arabera", description = "Ordutegi bat bilatzen du IDarekin eta aurkitzen bada itzultzen du.", responses = {
 			@ApiResponse(responseCode = "200", description = "Ordutegia aurkitu da", content = @Content(mediaType = "application/json")),
