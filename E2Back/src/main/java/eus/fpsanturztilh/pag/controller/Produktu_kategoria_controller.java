@@ -3,6 +3,7 @@ package eus.fpsanturztilh.pag.controller;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -39,7 +40,17 @@ public class Produktu_kategoria_controller {
 	@GetMapping("")
 	public ResponseEntity<List<Produktu_Kategoria>> getAllProduktuak() {
 
-		List<Produktu_Kategoria> produktuakKatList = produktuKatService.getAll();
+		List<Produktu_Kategoria> produktuakKatList = produktuKatService.getAll()
+			.stream()
+	        .filter(kategoria -> kategoria.getEzabatzeData() == null)
+	        .map(kategoria -> {
+	        	kategoria.setProduktuak(kategoria.getProduktuak()
+	                    .stream()
+	                    .filter(prod -> prod.getEzabatzeData() == null)
+	                    .collect(Collectors.toList()));
+	            return kategoria;
+	        })
+	        .collect(Collectors.toList());
 		return ResponseEntity.ok(produktuakKatList);
 	}
 

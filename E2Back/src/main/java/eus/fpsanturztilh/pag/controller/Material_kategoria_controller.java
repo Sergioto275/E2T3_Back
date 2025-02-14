@@ -3,6 +3,7 @@ package eus.fpsanturztilh.pag.controller;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,13 +36,22 @@ public class Material_kategoria_controller {
 	MaterialKategoriaServiceImpl materialKatService;
 
 	@GetMapping("")
-	@Operation(summary = "Material Kategoria guztiak lortzea", description = "Material Kategoria guztiak itzultzen ditu.", responses = {
-			@ApiResponse(responseCode = "200", description = "Eragiketa arrakastatsua", content = @Content(mediaType = "application/json")) })
-	public ResponseEntity<List<Material_kategoria>> getAllMaterialak() {
-
-		List<Material_kategoria> materialKatList = materialKatService.getAll();
-		return ResponseEntity.ok(materialKatList);
-	}
+    @Operation(summary = "Material Kategoria guztiak lortzea", description = "Material Kategoria guztiak itzultzen ditu, salvo los que tienen ezabatzeData.", responses = {
+            @ApiResponse(responseCode = "200", description = "Eragiketa arrakastatsua", content = @Content(mediaType = "application/json")) })
+    public ResponseEntity<List<Material_kategoria>> getAllMaterialak() {
+        List<Material_kategoria> materialKatList = materialKatService.getAll()
+        		.stream()
+                .filter(kategoria -> kategoria.getEzabatzeData() == null)
+                .map(kategoria -> {
+                	kategoria.setMaterialak(kategoria.getMaterialak()
+                            .stream()
+                            .filter(material -> material.getEzabatzeData() == null)
+                            .collect(Collectors.toList()));
+                    return kategoria;
+                })
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(materialKatList);
+    }
 
 	@GetMapping("/id/{id}")
 	@Operation(summary = "Material Kategoria bat lortzea IDaren arabera", description = "Material Kategoria bat bilatzen du IDarekin eta aurkitzen bada itzultzen du.", responses = {
