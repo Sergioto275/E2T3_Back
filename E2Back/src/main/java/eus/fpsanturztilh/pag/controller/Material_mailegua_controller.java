@@ -5,6 +5,7 @@ import eus.fpsanturztilh.pag.service.*;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,7 +13,10 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.media.Content;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:8100")
@@ -30,6 +34,47 @@ public class Material_mailegua_controller {
 		List<Material_mailegua> mailegua_list = mailegua_Service.getAll();
 		return ResponseEntity.ok(mailegua_list);
 	}
+	
+	@GetMapping("/{fechaDeInicio}/{fechaFin}")
+	@Operation(summary = "Material Mailegua guztiak lortzea", 
+	           description = "Material Mailegua guztiak itzultzen ditu, hasieraData eta ezbatzeData kontuan hartuta.", 
+	           responses = {
+	               @ApiResponse(responseCode = "200", description = "Eragiketa arrakastatsua", content = @Content(mediaType = "application/json")) 
+	           })
+	public ResponseEntity<List<Material_mailegua>> getAllMaileguak(
+	        @PathVariable("fechaDeInicio") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaDeInicio, 
+	        @PathVariable("fechaFin") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaFin) {
+
+	    // Convertir LocalDate a LocalDateTime (hora 00:00:00 para inicio, 23:59:59 para fin)
+	    LocalDateTime fechaInicioDateTime = fechaDeInicio.atStartOfDay();  // 00:00:00
+	    LocalDateTime fechaFinDateTime = fechaFin.atTime(23, 59, 59);     // 23:59:59
+
+	    // Recuperar todos los materiales de la base de datos
+	    List<Material_mailegua> mailegua_list = mailegua_Service.getAll();
+
+	    // Filtrar la lista con las fechas y EzbatzeData siendo null
+	    List<Material_mailegua> filteredList = mailegua_list.stream()
+	            .filter(mailegua -> {
+	                LocalDateTime fecha = mailegua.getHasieraData();  // Suponiendo que hasieraData es LocalDateTime
+	                LocalDateTime ezbatzeData = mailegua.getEzabatzeData();  // Supongo que ezbatzeData es LocalDateTime o null
+
+	                // Log para ver las fechas comparadas
+	                System.out.println("Fecha de inicio: " + fechaInicioDateTime + ", Fecha de fin: " + fechaFinDateTime);
+	                System.out.println("Fecha de material: " + fecha);
+	                System.out.println("EzbatzeData: " + ezbatzeData);
+
+	                // Filtrar solo los elementos cuyo hasieraData esté en el rango y EzbatzeData sea null
+	                return !fecha.toLocalDate().isBefore(fechaDeInicio) 
+	                        && !fecha.toLocalDate().isAfter(fechaFin) 
+	                        && ezbatzeData == null;
+	            })
+	            .collect(Collectors.toList());
+
+	    // Retornar la lista filtrada
+	    return ResponseEntity.ok(filteredList);
+	}
+
+
 
 	@GetMapping("/id/{id}")
 	@Operation(summary = "Material Mailegua bat lortzea IDaren arabera", description = "Material Mailegua bat bilatzen du IDarekin eta aurkitzen bada itzultzen du.", responses = {

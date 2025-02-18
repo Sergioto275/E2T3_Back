@@ -2,6 +2,7 @@ package eus.fpsanturztilh.pag.model;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -45,7 +46,7 @@ public class Txandak implements Serializable {
 
 	@Column(name = "data", nullable = false)
 	@Schema(description = "Txanden datak", example = "2025-01-15 09:16:31")
-	private Date data;
+	private LocalDate data;
 
 	@ManyToOne
 	@JoinColumn(name = "id_langilea", nullable = false)

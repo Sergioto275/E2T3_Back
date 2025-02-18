@@ -4,6 +4,7 @@ import eus.fpsanturztilh.pag.model.*;
 import eus.fpsanturztilh.pag.service.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,6 +38,16 @@ public class Hitzordu_controller {
 		List<Hitzorduak> hitzorduakList = hitzorduService.getAll();
 		return ResponseEntity.ok(hitzorduakList);
 	}
+	
+	@GetMapping("/date/{date}")
+    @Operation(summary = "Filtrar hitzorduak por fecha", description = "Devuelve los hitzorduak que coinciden con la fecha proporcionada.", responses = {
+            @ApiResponse(responseCode = "200", description = "Eragiketa arrakastatsua", content = @Content(mediaType = "application/json")),
+            @ApiResponse(responseCode = "400", description = "Formato de fecha inválido")
+    })
+    public ResponseEntity<List<Hitzorduak>> getHitzorduakByDate(@PathVariable("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+        List<Hitzorduak> filteredHitzorduak = hitzorduService.getByDate(date);
+        return ResponseEntity.ok(filteredHitzorduak);
+    }
 
 	@GetMapping("/id/{id}")
 	@Operation(summary = "Hitzordu bat lortzea IDaren arabera", description = "Hitzordu bat bilatzen du IDarekin eta aurkitzen bada itzultzen du.", responses = {
@@ -50,19 +61,38 @@ public class Hitzordu_controller {
 		return ResponseEntity.notFound().build();
 	}
 
-	@GetMapping("/ticket")
+	@GetMapping("/ticket/{fechaDeInicio}/{fechaFin}")
 	@Operation(summary = "Prezioa duten hitzorduak lortzea", description = "Prezioa duten hitzordu guztiak itzultzen ditu.", responses = {
-			@ApiResponse(responseCode = "200", description = "Eragiketa arrakastatsua", content = @Content(mediaType = "application/json")) })
-	public ResponseEntity<List<Hitzorduak>> getHitzorduakConPrecio() {
-		List<Hitzorduak> hitzorduakList = hitzorduService.getAll();
-		List<Hitzorduak> citasConPrecio = new ArrayList<>();
-		for (Hitzorduak hitzordu : hitzorduakList) {
-			if (hitzordu.getPrezioTotala() != null) {
-				citasConPrecio.add(hitzordu);
-			}
-		}
-		return ResponseEntity.ok(citasConPrecio);
+	        @ApiResponse(responseCode = "200", description = "Eragiketa arrakastatsua", content = @Content(mediaType = "application/json")) })
+	public ResponseEntity<List<Hitzorduak>> getHitzorduakConPrecio(@PathVariable("fechaDeInicio") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaDeInicio, 
+	        @PathVariable("fechaFin") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaFin) {
+	    
+	    // Convertir LocalDate a LocalDateTime (hora 00:00:00 para inicio, 23:59:59 para fin)
+	    LocalDateTime fechaInicioDateTime = fechaDeInicio.atStartOfDay();  // 00:00:00
+	    LocalDateTime fechaFinDateTime = fechaFin.atTime(23, 59, 59);     // 23:59:59
+
+	    List<Hitzorduak> hitzorduakList = hitzorduService.getAll();
+	    List<Hitzorduak> citasConPrecio = new ArrayList<>();
+	    
+	    // Filtrar la lista con las fechas y PrecioTotal no nulo
+	    for (Hitzorduak hitzordu : hitzorduakList) {
+	        if (hitzordu.getPrezioTotala() != null) {
+	            LocalDate fecha = hitzordu.getData();  // Suponiendo que 'data' es LocalDate
+
+	            // Log para ver las fechas comparadas
+	            System.out.println("Fecha de inicio: " + fechaInicioDateTime + ", Fecha de fin: " + fechaFinDateTime);
+	            System.out.println("Fecha de hitzordu: " + fecha);
+
+	            // Filtrar solo los elementos cuya fecha esté en el rango
+	            if (!fecha.isBefore(fechaDeInicio) && !fecha.isAfter(fechaFin)) {
+	                citasConPrecio.add(hitzordu);
+	            }
+	        }
+	    }
+
+	    return ResponseEntity.ok(citasConPrecio);
 	}
+
 
 	@GetMapping("/langileZerbitzuak")
 	@Operation(summary = "Zerbitzuak kategoria bakoitzean lortzea", description = "Zerbitzuak kategoria bakoitzean lortutako mapa itzultzen du.", responses = {

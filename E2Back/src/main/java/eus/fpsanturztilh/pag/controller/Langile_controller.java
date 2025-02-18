@@ -14,6 +14,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:8100")
@@ -31,13 +32,15 @@ public class Langile_controller {
 	Txandak_service txandakService;
 
 	@GetMapping("")
-	@Operation(summary = "Langile guztiak lortzea", description = "Langile guztien zerrenda itzultzen du.", responses = {
-			@ApiResponse(responseCode = "200", description = "Eragiketa arrakastatsua", content = @Content(mediaType = "application/json")) })
-	public ResponseEntity<List<Langileak>> getAllLangileak() {
-
-		List<Langileak> langileakList = langileService.getAll();
-		return ResponseEntity.ok(langileakList);
-	}
+    @Operation(summary = "Langile guztiak lortzea", description = "Langile guztien zerrenda itzultzen du, filtrando los que tienen ezabatzeData.", responses = {
+            @ApiResponse(responseCode = "200", description = "Eragiketa arrakastatsua", content = @Content(mediaType = "application/json")) })
+    public ResponseEntity<List<Langileak>> getAllLangileak() {
+        List<Langileak> langileakList = langileService.getAll()
+                .stream()
+                .filter(langile -> langile.getEzabatzeData() == null)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(langileakList);
+    }
 
 	@GetMapping("/id/{id}")
 	@Operation(summary = "Langile bat lortzea IDaren arabera", description = "Langile bat bilatzen du IDarekin eta aurkitzen bada itzultzen du.", responses = {

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/bezero_fitxak")
@@ -30,13 +31,22 @@ public class Bezero_fitxa_controller {
 	ProduktuServiceImpl produktuaService;
 
 	@GetMapping("")
-	@Operation(summary = "Bezero fitxa guztiak lortzea", description = "Bezero fitxa guztiak itzultzen ditu.", responses = {
-			@ApiResponse(responseCode = "200", description = "Eragiketa arrakastatsua", content = @Content(mediaType = "application/json")) })
-	public ResponseEntity<List<Bezero_fitxa>> getAllBezeroFitxak() {
-
-		List<Bezero_fitxa> bezero_fitxa_list = bezero_fitxaService.getAll();
-		return ResponseEntity.ok(bezero_fitxa_list);
-	}
+    @Operation(summary = "Bezero fitxa guztiak lortzea", description = "Bezero fitxa guztiak itzultzen ditu, salvo los que tienen ezabatzeData. Además, filtra el historial interno para eliminar elementos con ezabatzeData.", responses = {
+            @ApiResponse(responseCode = "200", description = "Eragiketa arrakastatsua", content = @Content(mediaType = "application/json")) })
+    public ResponseEntity<List<Bezero_fitxa>> getAllBezeroFitxak() {
+        List<Bezero_fitxa> bezero_fitxa_list = bezero_fitxaService.getAll()
+                .stream()
+                .filter(bezero -> bezero.getEzabatzeData() == null)
+                .map(bezero -> {
+                    bezero.setHistoriala(bezero.getHistoriala()
+                            .stream()
+                            .filter(historial -> historial.getEzabatzeData() == null)
+                            .collect(Collectors.toList()));
+                    return bezero;
+                })
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(bezero_fitxa_list);
+    }
 
 	@GetMapping("/id/{id}")
 	@Operation(summary = "Bezero fitxa bat lortzea IDaren arabera", description = "Bezero fitxa bat bilatzen du IDarekin eta aurkitzen bada itzultzen du.", responses = {

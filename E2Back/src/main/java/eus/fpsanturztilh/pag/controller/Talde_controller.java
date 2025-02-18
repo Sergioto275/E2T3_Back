@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:8100")
@@ -30,7 +31,17 @@ public class Talde_controller {
 			@ApiResponse(responseCode = "200", description = "Taldeen zerrenda eskuratu da") })
 	public ResponseEntity<List<Taldeak>> getAllTaldeak() {
 
-		List<Taldeak> taldeList = taldeService.getAll();
+		List<Taldeak> taldeList = taldeService.getAll()
+			.stream()
+	        .filter(talde -> talde.getEzabatzeData() == null)
+	        .map(talde -> {
+	        	talde.setLangileak(talde.getLangileak()
+	                    .stream()
+	                    .filter(langile -> langile.getEzabatzeData() == null)
+	                    .collect(Collectors.toList()));
+	            return talde;
+	        })
+	        .collect(Collectors.toList());
 		return ResponseEntity.ok(taldeList);
 	}
 
