@@ -1,5 +1,6 @@
 package eus.fpsanturztilh.pag.service;
 
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -22,6 +23,11 @@ public class Hitzordu_ServiceImpl implements Hitzordu_service {
 		List<Hitzorduak> hitzorduakList = hitzorduRepository.findAll();
         return hitzorduakList;
 	}
+	
+	@Override
+	public List<Hitzorduak> getByDate(LocalDate date) {
+        return hitzorduRepository.findByData(date);
+    }
 	
 	@Override
     public Optional<Hitzorduak> find(Long id)

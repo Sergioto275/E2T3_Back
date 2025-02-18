@@ -1,9 +1,13 @@
 package eus.fpsanturztilh.pag.controller;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -37,12 +41,37 @@ public class Produktu_mugimendu_controller {
 	@Autowired
 	Langile_service langileService;
 
-	@GetMapping("")
+	@GetMapping("/{fechaDeInicio}/{fechaFin}")
 	@Operation(summary = "Lortu produktu mugimendu guztiak", description = "Produktu mugimendu guztien zerrenda itzultzen du.")
-	public ResponseEntity<List<Produktu_mugimenduak>> getAllMugimenduak() {
+	public ResponseEntity<List<Produktu_mugimenduak>> getAllMugimenduak(@PathVariable("fechaDeInicio") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaDeInicio, 
+	        @PathVariable("fechaFin") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaFin) {
 
+	    // Convertir LocalDate a LocalDateTime (hora 00:00:00 para inicio, 23:59:59 para fin)
+	    LocalDateTime fechaInicioDateTime = fechaDeInicio.atStartOfDay();  // 00:00:00
+	    LocalDateTime fechaFinDateTime = fechaFin.atTime(23, 59, 59);     // 23:59:59
+	    
 		List<Produktu_mugimenduak> mugimenduakList = mugimenduService.getAll();
-		return ResponseEntity.ok(mugimenduakList);
+
+	    // Filtrar la lista con las fechas y EzbatzeData siendo null
+	    List<Produktu_mugimenduak> filteredList = mugimenduakList.stream()
+	            .filter(produktua -> {
+	                LocalDateTime fecha = produktua.getData();  // Suponiendo que hasieraData es LocalDateTime
+	                LocalDateTime ezbatzeData = produktua.getEzabatzeData();  // Supongo que ezbatzeData es LocalDateTime o null
+
+	                // Log para ver las fechas comparadas
+	                System.out.println("Fecha de inicio: " + fechaInicioDateTime + ", Fecha de fin: " + fechaFinDateTime);
+	                System.out.println("Fecha de material: " + fecha);
+	                System.out.println("EzbatzeData: " + ezbatzeData);
+
+	                // Filtrar solo los elementos cuyo hasieraData esté en el rango y EzbatzeData sea null
+	                return !fecha.toLocalDate().isBefore(fechaDeInicio) 
+	                        && !fecha.toLocalDate().isAfter(fechaFin) 
+	                        && ezbatzeData == null;
+	            })
+	            .collect(Collectors.toList());
+
+
+		return ResponseEntity.ok(filteredList);
 	}
 
 	@GetMapping("/id/{id}")
