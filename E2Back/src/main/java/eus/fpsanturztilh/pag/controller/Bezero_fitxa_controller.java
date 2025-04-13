@@ -97,7 +97,8 @@ public class Bezero_fitxa_controller {
 						existing.setKantitatea(hist.getKantitatea());
 						existing.setBolumena(hist.getBolumena());
 						existing.setOharrak(hist.getOharrak());
-
+						existing.setImg_url(hist.getImg_url());
+						
 						// Ezabatu bada, eguneratu ezabatze_data
 						if (hist.getEzabatzeData() != null) {
 							existing.setEzabatzeData(LocalDateTime.now());

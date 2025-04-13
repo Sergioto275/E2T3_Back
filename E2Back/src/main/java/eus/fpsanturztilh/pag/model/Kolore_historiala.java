@@ -52,6 +52,10 @@ public class Kolore_historiala implements Serializable {
 	@Column(nullable = true)
 	@Schema(description = "Kolore historialaren oharrak", example = "Se ha teñido de rubio y luego a moreno")
 	private String oharrak;
+	
+	@Column(nullable = true)
+	@Schema(description = "Kolore historialaren irudia", example = "https://drive.com/3hgsdln44ncvsty5")
+	private String img_url;
 
 	@Column(name = "sortze_data", updatable = false)
 	@Schema(description = "Kolore historialaren sortze data (autogeneratua)")
