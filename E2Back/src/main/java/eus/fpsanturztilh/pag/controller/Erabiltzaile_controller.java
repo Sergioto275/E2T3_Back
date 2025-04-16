@@ -20,6 +20,13 @@ import java.util.*;
 public class Erabiltzaile_controller {
 	@Autowired
 	private Erabiltzaile_ServiceImpl erabiltzaileService;
+	
+	@GetMapping("")
+	@Operation(summary = "Erabiltzaile guztiak eskuratzea", description = "Erabiltzaile guztien zerrenda bueltatzen du.")
+	public ResponseEntity<List<Erabiltzaile>> getAllUsers() {
+	    List<Erabiltzaile> erabiltzaileList = erabiltzaileService.findAll();
+	    return ResponseEntity.ok(erabiltzaileList);
+	}
 
 	@PostMapping("/login")
 	@Operation(summary = "Saioa hasteko erabiltzailea egiaztatzea", description = "Erabiltzailearen izena eta pasahitza egiaztatzea, eta arrakasta izanez gero, erabiltzailearen rolarekin batera erantzutea.", responses = {
@@ -29,6 +36,8 @@ public class Erabiltzaile_controller {
 		String username = credentials.getUsername();
 		String password = credentials.getPasahitza();
 		if (erabiltzaileService.authenticate(username, password)) {
+			System.out.println(credentials.getUsername());
+
 			Optional<Erabiltzaile> erabiltzaile = erabiltzaileService.findByUsername(username);
 			if (erabiltzaile.isPresent()) {
 				System.out.println("good");

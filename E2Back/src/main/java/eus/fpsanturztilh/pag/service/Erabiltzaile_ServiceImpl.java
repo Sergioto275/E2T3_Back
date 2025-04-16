@@ -3,6 +3,7 @@ package eus.fpsanturztilh.pag.service;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,10 @@ public class Erabiltzaile_ServiceImpl implements Erabiltzaile_service {
     
     @Autowired
     private Erabiltzaile_repository erabiltzaileRepository;
+    
+    public List<Erabiltzaile> findAll() {
+        return erabiltzaileRepository.findAll();
+    }
 
     public String hashPassword(String rawPassword) throws NoSuchAlgorithmException {
         MessageDigest digest = MessageDigest.getInstance("SHA-256");
@@ -37,7 +42,8 @@ public class Erabiltzaile_ServiceImpl implements Erabiltzaile_service {
             if (erabiltzaile.isPresent()) {
                 String hashedInput = hashPassword(rawPassword);
                 String storedHash = erabiltzaile.get().getPasahitza();
-                return hashedInput.equals(storedHash);
+                String hashedInput2 = hashPassword(storedHash); 
+                return hashedInput.equals(hashedInput2);
             }
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
