@@ -93,15 +93,15 @@ public class Material_mailegua_controller {
 			@ApiResponse(responseCode = "200", description = "Mugimenduak arrakastaz bukatu dira"),
 			@ApiResponse(responseCode = "400", description = "Errore bat gertatu da datuak prozesatzean"),
 			@ApiResponse(responseCode = "500", description = "Errore barneko zerbitzu baten arazo bat gertatu da") })
-	public ResponseEntity<String> terminarMugimenduak(@RequestBody List<Material_mailegua> mugimenduak) {
+	public ResponseEntity<List<Material_mailegua>> terminarMugimenduak(@RequestBody List<Material_mailegua> mugimenduak) {
 		try {
 			mailegua_Service.terminarMovimientos(mugimenduak);
 
-			return new ResponseEntity<>("Mugimenduak amaitu dira", HttpStatus.OK);
+			return ResponseEntity.ok().build();
 		} catch (IllegalArgumentException e) {
-			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+			return ResponseEntity.badRequest().build();
 		} catch (Exception e) {
-			return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+			return ResponseEntity.internalServerError().build();
 		}
 	}
 
