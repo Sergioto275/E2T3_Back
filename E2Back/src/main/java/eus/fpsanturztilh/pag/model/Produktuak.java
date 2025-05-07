@@ -49,6 +49,10 @@ public class Produktuak implements Serializable {
 	@Column(name = "stock_alerta", nullable = false)
 	@Schema(description = "Produktuaren stock alerta", example = "3")
 	private Integer stockAlerta;
+	
+	@Column(nullable = true)
+	@Schema(description = "Produktuaren irudia", example = "https://drive.com/3hgsdln44ncvsty5")
+	private String img_url;
 
 	@Column(name = "sortze_data", updatable = false)
 	@Schema(description = "Produktuaren sortze data (autogeneratua)")

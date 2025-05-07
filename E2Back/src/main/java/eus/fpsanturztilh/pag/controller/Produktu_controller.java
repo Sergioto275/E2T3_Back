@@ -87,6 +87,7 @@ public class Produktu_controller {
 			productoActualizado.setMarka(producto.getMarka());
 			productoActualizado.setStock(producto.getStock());
 			productoActualizado.setStockAlerta(producto.getStockAlerta());
+			productoActualizado.setImg_url(producto.getImg_url());
 			Long kategoriaId = producto.getProduktuKategoria().getId();
 			Optional<Produktu_Kategoria> categoria = produktuKategoriaService.find(kategoriaId);
 			if (categoria.isPresent()) {

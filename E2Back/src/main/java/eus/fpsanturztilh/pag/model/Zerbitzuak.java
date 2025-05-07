@@ -45,6 +45,10 @@ public class Zerbitzuak implements Serializable {
 	@JsonBackReference
 	@Schema(description = "Zerbitzuari esleitutako kategoriaren id-ak", example = "1")
 	private Zerbitzu_kategoria zerbitzuKategoria;
+	
+	@Column(nullable = true)
+	@Schema(description = "Zerbitzuen irudia", example = "https://drive.com/3hgsdln44ncvsty5")
+	private String img_url;
 
 	@Column(name = "sortze_data", updatable = false)
 	@Schema(description = "Zerbitzuen sortze data (autogeneratua)")

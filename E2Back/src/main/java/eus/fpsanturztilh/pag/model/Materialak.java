@@ -41,6 +41,10 @@ public class Materialak implements Serializable {
 	@JsonBackReference("mat-kat")
 	@Schema(description = "Materialean esleitutako kategoriaren id", example = "1")
 	private Material_kategoria materialKategoria;
+	
+	@Column(nullable = true)
+	@Schema(description = "Materialaren irudia", example = "https://drive.com/3hgsdln44ncvsty5")
+	private String img_url;
 
 	@Column(name = "sortze_data", updatable = false)
 	@Schema(description = "Materialaren sortze data (autogeneratua)")

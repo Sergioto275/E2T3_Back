@@ -85,6 +85,7 @@ public class Zerbitzu_controller {
 			zerbitzuActualizado.setIzena(zerbitzua.getIzena());
 			zerbitzuActualizado.setEtxekoPrezioa(zerbitzua.getEtxekoPrezioa());
 			zerbitzuActualizado.setKanpokoPrezioa(zerbitzua.getKanpokoPrezioa());
+			zerbitzuActualizado.setImg_url(zerbitzua.getImg_url());
 			Long kategoriaId = zerbitzua.getZerbitzuKategoria().getId();
 			Optional<Zerbitzu_kategoria> categoria = zerbitzuKategoriaService.find(kategoriaId);
 			if (categoria.isPresent()) {

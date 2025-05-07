@@ -85,6 +85,7 @@ public class Materiala_controller {
 			Materialak materialActualizado = materialExistente.get();
 			materialActualizado.setEtiketa(materiala.getEtiketa());
 			materialActualizado.setIzena(materiala.getIzena());
+			materialActualizado.setImg_url(materiala.getImg_url());
 			Long kategoriaId = materiala.getMaterialKategoria().getId();
 			Optional<Material_kategoria> categoria = materialKategoriaService.find(kategoriaId);
 			if (categoria.isPresent()) {
